@@ -63,11 +63,6 @@ fun QuoteScreen(navController: NavController, viewModel: MainViewModel) {
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     
-    val screens = listOf(
-        AppScreens.ProfileScreen,
-        AppScreens.HomeScreen,
-    )
-    
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
@@ -85,30 +80,32 @@ fun QuoteScreen(navController: NavController, viewModel: MainViewModel) {
             DrawerBody(
                 items = listOf(
                     MenuItem(
-                        id = "home",
+                        id = "HomeScreen",
                         title = "Home",
                         contentDescription = "Go to home screen",
                         icon = Icons.Default.Home,
                     ),
                     MenuItem(
-                        id = "profile",
+                        id = "ProfileScreen",
                         title = "profile",
                         contentDescription = "Go to profile screen",
                         icon = Icons.Default.Face
                     ),
                     MenuItem(
-                        id = "help",
+                        id = "FavoriteScreen",
+                        title = "favorite",
+                        contentDescription = "Go to favorite screen",
+                        icon = Icons.Default.Favorite
+                    ),
+                    MenuItem(
+                        id = "HelpScreen",
                         title = "Help",
                         contentDescription = "Get help",
                         icon = Icons.Default.Info
                     ),
                 ),
                 onItemClick = {
-                    screens.forEach { screen ->
-                        if (screen.name.lowercase().contains(it.title)) {
-                            navController.navigate(screen.name)
-                        }
-                    }
+                            navController.navigate(it.id)
                 }
             )
         }
