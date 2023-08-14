@@ -4,7 +4,7 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.quoteofday.ui.QuotesType
+import com.example.quoteofday.data.QuotesType
 import kotlinx.parcelize.Parcelize
 
 @Entity(tableName = "quotes_table")

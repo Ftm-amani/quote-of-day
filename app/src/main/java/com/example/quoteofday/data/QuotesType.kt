@@ -1,4 +1,4 @@
-package com.example.quoteofday.ui
+package com.example.quoteofday.data
 
 enum class QuotesType {
         MENTAL_HEALTH,

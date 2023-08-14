@@ -1,7 +1,7 @@
 package com.example.quoteofday.data.local
 
 import com.example.quoteofday.data.models.Quotes
-import com.example.quoteofday.ui.QuotesType
+import com.example.quoteofday.data.QuotesType
 
 object ListOfQuotes {
     var allQuotes = listOf(

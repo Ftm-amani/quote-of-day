@@ -3,13 +3,13 @@ package com.example.quoteofday.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.quoteofday.ui.DialogScreen
+import com.example.quoteofday.ui.dialog.DialogScreen
 import com.example.quoteofday.ui.MainViewModel
-import com.example.quoteofday.ui.QuoteScreen
+import com.example.quoteofday.ui.home.QuoteScreen
+import com.example.quoteofday.ui.profilescreen.ProfileScreen
 
 @ExperimentalComposeUiApi
 @Composable
@@ -31,6 +31,9 @@ fun AppNavigation() {
 				navController = navController,
 				viewModel = mainViewModel
 			)
+		}
+		composable(AppScreens.ProfileScreen.name) {
+			ProfileScreen()
 		}
 	}
 

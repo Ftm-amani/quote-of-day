@@ -9,11 +9,16 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33b7c096-3e24-4ea8-abba-3fcfd8203ae1" name="Changes" comment="pager added">
+    <list default="true" id="33b7c096-3e24-4ea8-abba-3fcfd8203ae1" name="Changes" comment="pager transition added">
       <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/HomeScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/HomeScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/data/local/ListOfQuotes.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/data/local/ListOfQuotes.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/data/models/Quotes.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/data/models/Quotes.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/navigation/AppNavigation.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/navigation/AppNavigation.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/navigation/AppScreens.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/navigation/AppScreens.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/DialogScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/dialog/DialogScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/HomeScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/home/HomeScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/QuotesType.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/data/QuotesType.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +31,14 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin File" />
+        <option value="Kotlin Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -36,6 +49,9 @@
     <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2RL8unvLpLf1wf5URWXuPHfQuVf" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
@@ -62,7 +78,12 @@
       <recent name="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/dialog" />
+      <recent name="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/home" />
       <recent name="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui" />
+    </key>
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="com.example.quoteofday.data" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
       <recent name="com.example.quoteofday" />
@@ -158,7 +179,14 @@
       <option name="project" value="LOCAL" />
       <updated>1691410296308</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="pager transition added">
+      <created>1692019317220</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1692019317220</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -176,6 +204,7 @@
     <MESSAGE value="di,room added" />
     <MESSAGE value="di,application class" />
     <MESSAGE value="pager added" />
-    <option name="LAST_COMMIT_MESSAGE" value="pager added" />
+    <MESSAGE value="pager transition added" />
+    <option name="LAST_COMMIT_MESSAGE" value="pager transition added" />
   </component>
 </project>

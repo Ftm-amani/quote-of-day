@@ -1,4 +1,4 @@
-package com.example.quoteofday.ui
+package com.example.quoteofday.ui.home
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -24,10 +24,14 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material.Icon
+import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Share
+import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material3.Icon
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
@@ -36,10 +40,14 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import com.example.quoteofday.R
+import com.example.quoteofday.data.models.MenuItem
+import com.example.quoteofday.navigation.AppScreens
+import com.example.quoteofday.ui.MainViewModel
 import com.google.android.material.animation.AnimationUtils.lerp
+import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
 
-@SuppressLint("RestrictedApi")
+@SuppressLint("RestrictedApi", "UnusedMaterialScaffoldPaddingParameter")
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun QuoteScreen(navController: NavController, viewModel: MainViewModel) {
@@ -52,33 +60,91 @@ fun QuoteScreen(navController: NavController, viewModel: MainViewModel) {
         quotes.size
     }
     
-    Surface(
-        modifier = Modifier
-            .fillMaxHeight()
-            .fillMaxWidth(),
-        color = MaterialTheme.colors.background
+    val scaffoldState = rememberScaffoldState()
+    val scope = rememberCoroutineScope()
+    
+    val screens = listOf(
+        AppScreens.ProfileScreen,
+        AppScreens.HomeScreen,
+    )
+    
+    Scaffold(
+        scaffoldState = scaffoldState,
+        topBar = {
+            AppBar(
+                onNavigationIconClick = {
+                    scope.launch {
+                        scaffoldState.drawerState.open()
+                    }
+                }
+            )
+        },
+        drawerGesturesEnabled = scaffoldState.drawerState.isOpen,
+        drawerContent = {
+            DrawerHeader()
+            DrawerBody(
+                items = listOf(
+                    MenuItem(
+                        id = "home",
+                        title = "Home",
+                        contentDescription = "Go to home screen",
+                        icon = Icons.Default.Home,
+                    ),
+                    MenuItem(
+                        id = "profile",
+                        title = "profile",
+                        contentDescription = "Go to profile screen",
+                        icon = Icons.Default.Face
+                    ),
+                    MenuItem(
+                        id = "help",
+                        title = "Help",
+                        contentDescription = "Get help",
+                        icon = Icons.Default.Info
+                    ),
+                ),
+                onItemClick = {
+                    screens.forEach { screen ->
+                        if (screen.name.lowercase().contains(it.title)) {
+                            navController.navigate(screen.name)
+                        }
+                    }
+                }
+            )
+        }
     ) {
-        if (quotes.isNotEmpty()) {
-            VerticalPager(
-                state = pagerState,
-            ) { page ->
-                QuoteItem(
-                    quote = quotes[page],
-                    modifier = Modifier
-                        .pagerGateTransition(
-                            page = page,
-                            pagerState = pagerState)
-                )
+        
+        Surface(
+            modifier = Modifier
+                .fillMaxHeight()
+                .fillMaxWidth(),
+            color = MaterialTheme.colors.background
+        ) {
+            if (quotes.isNotEmpty()) {
+                VerticalPager(
+                    state = pagerState,
+                ) { page ->
+                    QuoteItem(
+                        quote = quotes[page],
+                        modifier = Modifier
+                            .pagerGateTransition(
+                                page = page,
+                                pagerState = pagerState
+                            )
+                    )
+                }
+            } else {
+                Text(text = "No quotes available")
             }
-        } else {
-            Text(text = "No quotes available")
         }
     }
 }
 
 @Composable
-fun QuoteItem(quote: Quotes,
-modifier: Modifier) {
+fun QuoteItem(
+    quote: Quotes,
+    modifier: Modifier
+) {
     val backgroundImage: Painter = painterResource(R.drawable.back)
     
     Box(modifier.fillMaxWidth()) {

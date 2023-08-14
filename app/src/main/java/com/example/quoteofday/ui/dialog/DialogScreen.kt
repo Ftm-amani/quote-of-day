@@ -1,16 +1,15 @@
-package com.example.quoteofday.ui
+package com.example.quoteofday.ui.dialog
 
-import android.util.Log
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.quoteofday.navigation.AppScreens
+import com.example.quoteofday.ui.MainViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -55,11 +54,4 @@ fun DialogScreen(
     
   
     
-}
-
-
-@Preview
-@Composable
-fun ShowDialogQuestionPrew() {
-//    DialogScreen()
 }
