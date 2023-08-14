@@ -1,5 +1,6 @@
 package com.example.quoteofday.ui
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -19,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.quoteofday.data.models.Quotes
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -26,6 +28,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Share
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -33,7 +36,10 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import com.example.quoteofday.R
+import com.google.android.material.animation.AnimationUtils.lerp
+import kotlin.math.absoluteValue
 
+@SuppressLint("RestrictedApi")
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun QuoteScreen(navController: NavController, viewModel: MainViewModel) {
@@ -41,7 +47,10 @@ fun QuoteScreen(navController: NavController, viewModel: MainViewModel) {
     val pagerState = rememberPagerState(
         initialPage = 0,
         initialPageOffsetFraction = 0F
-    )
+    ) {
+        // provide pageCount
+        quotes.size
+    }
     
     Surface(
         modifier = Modifier
@@ -51,10 +60,15 @@ fun QuoteScreen(navController: NavController, viewModel: MainViewModel) {
     ) {
         if (quotes.isNotEmpty()) {
             VerticalPager(
-                pageCount = quotes.size,
                 state = pagerState,
             ) { page ->
-                QuoteItem(quote = quotes[page])
+                QuoteItem(
+                    quote = quotes[page],
+                    modifier = Modifier
+                        .pagerGateTransition(
+                            page = page,
+                            pagerState = pagerState)
+                )
             }
         } else {
             Text(text = "No quotes available")
@@ -63,27 +77,28 @@ fun QuoteScreen(navController: NavController, viewModel: MainViewModel) {
 }
 
 @Composable
-fun QuoteItem(quote: Quotes) {
+fun QuoteItem(quote: Quotes,
+modifier: Modifier) {
     val backgroundImage: Painter = painterResource(R.drawable.back)
     
-    Box(Modifier.fillMaxWidth()) {
+    Box(modifier.fillMaxWidth()) {
         Image(
             painter = backgroundImage,
             contentDescription = null,
-            modifier = Modifier.fillMaxSize(),
+            modifier = modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
         
         Column(
-            modifier = Modifier.fillMaxHeight(),
+            modifier = modifier.fillMaxHeight(),
             verticalArrangement = Arrangement.SpaceBetween,
         ) {
             Column(
-                modifier = Modifier.fillMaxHeight(),
+                modifier = modifier.fillMaxHeight(),
             ) {
                 
                 Row(
-                    modifier = Modifier
+                    modifier = modifier
                         .fillMaxWidth()
                         .wrapContentHeight()
                         .weight(1f, true)
@@ -107,7 +122,7 @@ fun QuoteItem(quote: Quotes) {
                 Row(
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.Bottom,
-                    modifier = Modifier
+                    modifier = modifier
                         .fillMaxWidth()
                         .padding(10.dp)
                         .padding(top = 16.dp)
@@ -115,7 +130,7 @@ fun QuoteItem(quote: Quotes) {
                     Icon(
                         imageVector = Icons.Outlined.Share,
                         contentDescription = "Share",
-                        modifier = Modifier
+                        modifier = modifier
                             .padding(20.dp)
                             .size(48.dp)
                     )
@@ -123,17 +138,32 @@ fun QuoteItem(quote: Quotes) {
                     Icon(
                         imageVector = Icons.Outlined.FavoriteBorder,
                         contentDescription = "Favorite",
-                        modifier = Modifier
+                        modifier = modifier
                             .padding(20.dp)
                             .size(48.dp)
                     )
                 }
                 Spacer(
-                    modifier = Modifier
+                    modifier = modifier
                         .fillMaxWidth()
                         .height(20.dp)
                 )
             }
         }
     }
+}
+
+@SuppressLint("RestrictedApi")
+@OptIn(ExperimentalFoundationApi::class)
+fun Modifier.pagerGateTransition(page: Int, pagerState: PagerState) = graphicsLayer {
+    val pageOffset = (
+            (pagerState.currentPage - page) + pagerState
+                .currentPageOffsetFraction
+            ).absoluteValue
+    
+    alpha = lerp(
+         0.5f,
+         1f,
+         1f - pageOffset.coerceIn(0f, 1f)
+    )
 }
