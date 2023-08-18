@@ -39,7 +39,9 @@ fun AppNavigation(showDialog: Boolean, sharedPreferences: SharedPreferences) {
 			)
 		}
 		composable(AppScreens.ProfileScreen.name) {
-			ProfileScreen()
+			ProfileScreen(
+				sharedPreferences = sharedPreferences
+			)
 		}
 		composable(AppScreens.FavoriteScreen.name) {
 			val favoritesViewModel = hiltViewModel<FavoritesViewModel>()

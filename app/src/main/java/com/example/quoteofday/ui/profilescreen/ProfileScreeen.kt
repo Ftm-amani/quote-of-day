@@ -1,5 +1,6 @@
 package com.example.quoteofday.ui.profilescreen
 
+import android.content.SharedPreferences
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,7 +19,11 @@ import androidx.compose.ui.unit.dp
 import com.example.quoteofday.R
 
 @Composable
-fun ProfileScreen() {
+fun ProfileScreen(
+    sharedPreferences: SharedPreferences
+) {
+    val userName = sharedPreferences.getString("user_name", "").toString()
+    
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -29,7 +34,7 @@ fun ProfileScreen() {
             contentPadding = PaddingValues(16.dp)
         ) {
             item {
-                ProfileHeader()
+                ProfileHeader(userName)
             }
             items(5) {
                 ProfileItem("Item $it")
@@ -39,7 +44,7 @@ fun ProfileScreen() {
 }
 
 @Composable
-fun ProfileHeader() {
+fun ProfileHeader(username:String) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -54,7 +59,7 @@ fun ProfileHeader() {
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "John Doe",
+            text = username,
             fontWeight = FontWeight.Bold,
             style = MaterialTheme.typography.bodyLarge
         )
