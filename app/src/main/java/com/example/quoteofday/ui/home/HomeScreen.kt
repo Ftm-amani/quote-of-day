@@ -66,7 +66,6 @@ fun QuoteScreen(
         // provide pageCount
         quotes.size
     }
-    
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
@@ -75,6 +74,7 @@ fun QuoteScreen(
         scaffoldState = scaffoldState,
         topBar = {
             AppBar(
+                imageVector = Icons.Default.Menu,
                 onNavigationIconClick = {
                     scope.launch {
                         scaffoldState.drawerState.open()
@@ -92,12 +92,6 @@ fun QuoteScreen(
                         title = "Home",
                         contentDescription = "Go to home screen",
                         icon = Icons.Default.Home,
-                    ),
-                    MenuItem(
-                        id = "ProfileScreen",
-                        title = "profile",
-                        contentDescription = "Go to profile screen",
-                        icon = Icons.Default.Face
                     ),
                     MenuItem(
                         id = "FavoriteScreen",

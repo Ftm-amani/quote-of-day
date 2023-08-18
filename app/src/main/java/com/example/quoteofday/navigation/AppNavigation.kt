@@ -12,7 +12,6 @@ import com.example.quoteofday.ui.MainViewModel
 import com.example.quoteofday.ui.favotire.FavoriteScreen
 import com.example.quoteofday.ui.favotire.FavoritesViewModel
 import com.example.quoteofday.ui.home.QuoteScreen
-import com.example.quoteofday.ui.profilescreen.ProfileScreen
 
 @ExperimentalComposeUiApi
 @Composable
@@ -36,11 +35,6 @@ fun AppNavigation(showDialog: Boolean, sharedPreferences: SharedPreferences) {
 				navController = navController,
 				viewModel = mainViewModel,
 				favoritesViewModel = favoritesViewModel
-			)
-		}
-		composable(AppScreens.ProfileScreen.name) {
-			ProfileScreen(
-				sharedPreferences = sharedPreferences
 			)
 		}
 		composable(AppScreens.FavoriteScreen.name) {

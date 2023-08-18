@@ -7,7 +7,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -15,16 +16,29 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.quoteofday.data.models.Quotes
+import com.example.quoteofday.navigation.AppScreens
+import com.example.quoteofday.ui.home.AppBar
+import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun FavoriteScreen(navController: NavController, viewModel: FavoritesViewModel) {
-    
+    val scope = rememberCoroutineScope()
     val favoriteQuotes by viewModel.favoriteQuotes.collectAsState(initial = emptyList())
     
-    Surface(
+    Scaffold(
         modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
+        contentColor = MaterialTheme.colorScheme.background,
+        topBar = {
+            AppBar(
+                imageVector = Icons.Default.ArrowBack,
+                onNavigationIconClick = {
+                    scope.launch {
+                        navController.navigate(AppScreens.HomeScreen.name)
+                    }
+                }
+            )
+        },
     ) {
         Column(
             modifier = Modifier
