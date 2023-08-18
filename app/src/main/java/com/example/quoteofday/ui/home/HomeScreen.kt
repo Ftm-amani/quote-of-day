@@ -1,6 +1,7 @@
 package com.example.quoteofday.ui.home
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -37,6 +38,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -67,6 +69,7 @@ fun QuoteScreen(
     
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
+    val context = LocalContext.current
     
     Scaffold(
         scaffoldState = scaffoldState,
@@ -133,7 +136,16 @@ fun QuoteScreen(
                                 page = page,
                                 pagerState = pagerState
                             ),
-                        favoritesViewModel
+                        onFavoriteClick = {
+                            favoritesViewModel.toggleQuoteFavorite(quotes[page])
+                        },
+                        onShareClick = {
+                            val shareIntent = Intent(Intent.ACTION_SEND)
+                            shareIntent.type = "text/plain"
+                            shareIntent.putExtra(Intent.EXTRA_TEXT, quotes[page].text)
+                            val chooser = Intent.createChooser(shareIntent, "Share Quote")
+                            context.startActivity(chooser)
+                        }
                     )
                 }
             } else {
@@ -147,8 +159,8 @@ fun QuoteScreen(
 fun QuoteItem(
     quote: Quotes,
     modifier: Modifier,
-    viewModel: FavoritesViewModel
-) {
+    onFavoriteClick: () -> Unit,
+    onShareClick: () -> Unit) {
     val backgroundImage: Painter = painterResource(R.drawable.back)
     
     Box(modifier.fillMaxWidth()) {
@@ -203,6 +215,9 @@ fun QuoteItem(
                         modifier = modifier
                             .padding(20.dp)
                             .size(48.dp)
+                            .clickable {
+                                onShareClick()
+                            }
                     )
                     
                     Icon(
@@ -212,7 +227,7 @@ fun QuoteItem(
                             .padding(20.dp)
                             .size(48.dp)
                             .clickable {
-                                viewModel.toggleQuoteFavorite(quote)
+                                onFavoriteClick()
                             }
                     )
                 }
