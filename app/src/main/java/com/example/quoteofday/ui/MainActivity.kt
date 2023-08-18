@@ -1,5 +1,7 @@
 package com.example.quoteofday.ui
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,36 +17,27 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 //HiltAndroidApp
 class MainActivity : ComponentActivity() {
+    
+    private lateinit var sharedPreferences: SharedPreferences
+    
     @OptIn(ExperimentalComposeUiApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+    
+        sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+    
         setContent {
             setContent {
                 QuoteOfDayTheme {
-                    // A surface container using the 'background' color from the theme
                     Surface(
                         modifier = Modifier.fillMaxSize(),
                         color = MaterialTheme.colors.background
                     ) {
-                        //
-                        AppNavigation()
-                        //                        DialogScreen()
+                        val showDialog = !sharedPreferences.contains("user_name")
+                        AppNavigation(showDialog,sharedPreferences)
                     }
                 }
             }
         }
     }
 }
-
-//@Composable
-//fun Greeting(name: String) {
-//    Text(text = "Hello $name!")
-//}
-//
-//@Preview(showBackground = true)
-//@Composable
-//fun DefaultPreview() {
-//    QuoteOfDayTheme {
-//        Greeting("Android")
-//    }
-//}

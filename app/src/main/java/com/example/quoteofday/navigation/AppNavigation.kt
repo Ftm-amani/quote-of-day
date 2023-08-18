@@ -1,5 +1,6 @@
 package com.example.quoteofday.navigation
 
+import android.content.SharedPreferences
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -15,16 +16,17 @@ import com.example.quoteofday.ui.profilescreen.ProfileScreen
 
 @ExperimentalComposeUiApi
 @Composable
-fun AppNavigation() {
+fun AppNavigation(showDialog: Boolean, sharedPreferences: SharedPreferences) {
 	val navController = rememberNavController()
 	NavHost(navController = navController,
-			startDestination = AppScreens.DialogScreen.name ){
+		startDestination = if (showDialog) AppScreens.DialogScreen.name else AppScreens.HomeScreen.name ){
 		
 		composable(AppScreens.DialogScreen.name) {
 			val mainViewModel = hiltViewModel<MainViewModel>()
 			DialogScreen(
 				navController = navController,
-				viewModel = mainViewModel
+				viewModel = mainViewModel,
+				sharedPreferences = sharedPreferences
 			)
 		}
 		composable(AppScreens.HomeScreen.name) {
