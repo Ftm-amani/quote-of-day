@@ -15,5 +15,5 @@ class RoomFunctions @Inject constructor(
     
     fun getAllQuotes() = quoteDao.getAllQuotes()
     
-//    suspend fun getOneQuote() = quoteDao.getOneQuote()
+    fun getFavoriteQuotes() = quoteDao.getFavoriteQuotes()
 }

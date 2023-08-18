@@ -1,11 +1,13 @@
 package com.example.quoteofday.ui.favotire
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -13,12 +15,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.quoteofday.data.models.Quotes
-import com.example.quoteofday.ui.MainViewModel
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun FavoriteScreen(navController: NavController, viewModel: MainViewModel) {
+fun FavoriteScreen(navController: NavController, viewModel: FavoritesViewModel) {
     
-    val favoriteQuotes by viewModel.getAllRepos().collectAsState(initial = emptyList())
+    val favoriteQuotes by viewModel.favoriteQuotes.collectAsState(initial = emptyList())
     
     Surface(
         modifier = Modifier.fillMaxSize(),

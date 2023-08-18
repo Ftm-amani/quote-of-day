@@ -3,6 +3,7 @@ package com.example.quoteofday.ui.home
 import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -27,6 +28,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material.rememberScaffoldState
@@ -41,8 +43,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import com.example.quoteofday.R
 import com.example.quoteofday.data.models.MenuItem
-import com.example.quoteofday.navigation.AppScreens
 import com.example.quoteofday.ui.MainViewModel
+import com.example.quoteofday.ui.favotire.FavoritesViewModel
 import com.google.android.material.animation.AnimationUtils.lerp
 import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
@@ -50,7 +52,10 @@ import kotlin.math.absoluteValue
 @SuppressLint("RestrictedApi", "UnusedMaterialScaffoldPaddingParameter")
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun QuoteScreen(navController: NavController, viewModel: MainViewModel) {
+fun QuoteScreen(
+    navController: NavController,
+    viewModel: MainViewModel,
+    favoritesViewModel: FavoritesViewModel) {
     val quotes by viewModel.getAllRepos().collectAsState(initial = emptyList())
     val pagerState = rememberPagerState(
         initialPage = 0,
@@ -127,7 +132,8 @@ fun QuoteScreen(navController: NavController, viewModel: MainViewModel) {
                             .pagerGateTransition(
                                 page = page,
                                 pagerState = pagerState
-                            )
+                            ),
+                        favoritesViewModel
                     )
                 }
             } else {
@@ -140,7 +146,8 @@ fun QuoteScreen(navController: NavController, viewModel: MainViewModel) {
 @Composable
 fun QuoteItem(
     quote: Quotes,
-    modifier: Modifier
+    modifier: Modifier,
+    viewModel: FavoritesViewModel
 ) {
     val backgroundImage: Painter = painterResource(R.drawable.back)
     
@@ -199,11 +206,14 @@ fun QuoteItem(
                     )
                     
                     Icon(
-                        imageVector = Icons.Outlined.FavoriteBorder,
-                        contentDescription = "Favorite",
+                        imageVector = if (quote.isFave == true) Icons.Outlined.Favorite else Icons.Outlined.FavoriteBorder,
+                        contentDescription = if (quote.isFave == true) "Unfavorite" else "Favorite",
                         modifier = modifier
                             .padding(20.dp)
                             .size(48.dp)
+                            .clickable {
+                                viewModel.toggleQuoteFavorite(quote)
+                            }
                     )
                 }
                 Spacer(
