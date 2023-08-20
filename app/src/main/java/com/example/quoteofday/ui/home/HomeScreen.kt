@@ -100,10 +100,10 @@ fun QuoteScreen(
                         icon = Icons.Default.Favorite
                     ),
                     MenuItem(
-                        id = "HelpScreen",
-                        title = "Help",
-                        contentDescription = "Get help",
-                        icon = Icons.Default.Info
+                        id = "SettingScreen",
+                        title = "Setting",
+                        contentDescription = "go to setting screen",
+                        icon = Icons.Default.Settings
                     ),
                 ),
                 onItemClick = {

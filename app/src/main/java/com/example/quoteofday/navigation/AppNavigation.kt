@@ -12,6 +12,7 @@ import com.example.quoteofday.ui.MainViewModel
 import com.example.quoteofday.ui.favotire.FavoriteScreen
 import com.example.quoteofday.ui.favotire.FavoritesViewModel
 import com.example.quoteofday.ui.home.QuoteScreen
+import com.example.quoteofday.ui.setting.SettingsScreen
 
 @ExperimentalComposeUiApi
 @Composable
@@ -44,6 +45,12 @@ fun AppNavigation(showDialog: Boolean, sharedPreferences: SharedPreferences) {
 				viewModel = favoritesViewModel
 			)
 		}
+		composable(AppScreens.SettingScreen.name) {
+			SettingsScreen(
+				navController = navController,
+			)
+		}
 	}
 
 }
+
