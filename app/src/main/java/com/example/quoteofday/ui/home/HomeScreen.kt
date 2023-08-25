@@ -111,12 +111,18 @@ fun QuoteScreen(
                 }
             )
         }
-    ) {
+    ) { paddingValue ->
         
         Surface(
             modifier = Modifier
                 .fillMaxHeight()
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(
+                    top = paddingValue.calculateTopPadding(),
+                    start = 5.dp,
+                    end = 5.dp,
+                    bottom = 5.dp
+                ),
             color = MaterialTheme.colors.background
         ) {
             if (quotes.isNotEmpty()) {
