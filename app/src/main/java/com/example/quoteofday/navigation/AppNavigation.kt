@@ -13,6 +13,7 @@ import com.example.quoteofday.ui.favotire.FavoriteScreen
 import com.example.quoteofday.ui.favotire.FavoritesViewModel
 import com.example.quoteofday.ui.home.QuoteScreen
 import com.example.quoteofday.ui.setting.SettingsScreen
+import com.example.quoteofday.ui.setting.wallpaper.ChangeWallpaperScreen
 
 @ExperimentalComposeUiApi
 @Composable
@@ -47,6 +48,11 @@ fun AppNavigation(showDialog: Boolean, sharedPreferences: SharedPreferences) {
 		}
 		composable(AppScreens.SettingScreen.name) {
 			SettingsScreen(
+				navController = navController,
+			)
+		}
+		composable(AppScreens.ChangeWallpaperScreen.name) {
+			ChangeWallpaperScreen(
 				navController = navController,
 			)
 		}

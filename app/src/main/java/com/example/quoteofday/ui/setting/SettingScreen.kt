@@ -29,7 +29,6 @@ import kotlinx.coroutines.launch
 @Composable
 fun SettingsScreen(navController: NavController) {
     var darkMode by remember { mutableStateOf(false) }
-    var selectedFont by remember { mutableStateOf("Font 1") }
     val scope = rememberCoroutineScope()
     
     Scaffold(
@@ -75,7 +74,7 @@ fun SettingsScreen(navController: NavController) {
                         SettingsSubSectionCard(
                             title = "Change wallpaper",
                             onItemClick = {
-                            
+                                navController.navigate(AppScreens.ChangeWallpaperScreen.name)
                             })
                         
                     }

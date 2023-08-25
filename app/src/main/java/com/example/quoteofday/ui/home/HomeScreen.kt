@@ -34,6 +34,8 @@ import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.Icon
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
@@ -43,10 +45,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import com.example.quoteofday.R
 import com.example.quoteofday.data.models.MenuItem
 import com.example.quoteofday.ui.MainViewModel
 import com.example.quoteofday.ui.favotire.FavoritesViewModel
+import com.example.quoteofday.ui.setting.wallpaper.BackgroundManager
+import com.example.quoteofday.ui.setting.wallpaper.backgroundOptions
 import com.google.android.material.animation.AnimationUtils.lerp
 import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
@@ -69,6 +72,8 @@ fun QuoteScreen(
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
+    val backgroundManager = BackgroundManager(LocalContext.current)
+    val selectedBackgroundIndex = backgroundManager.getBackgroundIndex()
     
     Scaffold(
         scaffoldState = scaffoldState,
@@ -136,6 +141,7 @@ fun QuoteScreen(
                                 page = page,
                                 pagerState = pagerState
                             ),
+                        backgroundIndex = selectedBackgroundIndex,
                         onFavoriteClick = {
                             favoritesViewModel.toggleQuoteFavorite(quotes[page])
                         },
@@ -159,9 +165,14 @@ fun QuoteScreen(
 fun QuoteItem(
     quote: Quotes,
     modifier: Modifier,
+    backgroundIndex: Int,
     onFavoriteClick: () -> Unit,
     onShareClick: () -> Unit) {
-    val backgroundImage: Painter = painterResource(R.drawable.back)
+    
+    val selectedBackgroundIndex by remember {
+        mutableIntStateOf(backgroundIndex)
+    }
+    val backgroundImage: Painter = painterResource(backgroundOptions[selectedBackgroundIndex])
     
     Box(modifier.fillMaxWidth()) {
         Image(
