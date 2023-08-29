@@ -48,6 +48,7 @@ import androidx.compose.ui.text.style.TextAlign
 import com.example.quoteofday.data.models.MenuItem
 import com.example.quoteofday.ui.MainViewModel
 import com.example.quoteofday.ui.favotire.FavoritesViewModel
+import com.example.quoteofday.ui.setting.FontManager
 import com.example.quoteofday.ui.setting.wallpaper.BackgroundManager
 import com.example.quoteofday.ui.setting.wallpaper.backgroundOptions
 import com.google.android.material.animation.AnimationUtils.lerp
@@ -74,6 +75,8 @@ fun QuoteScreen(
     val context = LocalContext.current
     val backgroundManager = BackgroundManager(LocalContext.current)
     val selectedBackgroundIndex = backgroundManager.getBackgroundIndex()
+    val fontManager = FontManager(LocalContext.current)
+    val selectedFontSize = fontManager.getFontSize()
     
     Scaffold(
         scaffoldState = scaffoldState,
@@ -142,6 +145,7 @@ fun QuoteScreen(
                                 pagerState = pagerState
                             ),
                         backgroundIndex = selectedBackgroundIndex,
+                        fontSize = selectedFontSize,
                         onFavoriteClick = {
                             favoritesViewModel.toggleQuoteFavorite(quotes[page])
                         },
@@ -166,11 +170,15 @@ fun QuoteItem(
     quote: Quotes,
     modifier: Modifier,
     backgroundIndex: Int,
+    fontSize: Int,
     onFavoriteClick: () -> Unit,
     onShareClick: () -> Unit) {
     
     val selectedBackgroundIndex by remember {
         mutableIntStateOf(backgroundIndex)
+    }
+    val selectedFontSize by remember {
+        mutableIntStateOf(fontSize)
     }
     val backgroundImage: Painter = painterResource(backgroundOptions[selectedBackgroundIndex])
     
@@ -203,7 +211,7 @@ fun QuoteItem(
                         text = quote.text,
                         fontFamily = FontFamily.Serif,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 40.sp,
+                        fontSize = selectedFontSize.sp,
                         textAlign = TextAlign.Center,
                         modifier = Modifier
                             .padding(16.dp)

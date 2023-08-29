@@ -2,6 +2,7 @@ package com.example.quoteofday.ui.setting
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
@@ -11,14 +12,21 @@ import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.quoteofday.navigation.AppScreens
@@ -29,6 +37,9 @@ import kotlinx.coroutines.launch
 @Composable
 fun SettingsScreen(navController: NavController) {
     var darkMode by remember { mutableStateOf(false) }
+    var fontSizeSettingExpand by remember { mutableStateOf(false) }
+    var fontColorSettingExpand by remember { mutableStateOf(false) }
+    var fontSettingExpand by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
     
     Scaffold(
@@ -73,33 +84,42 @@ fun SettingsScreen(navController: NavController) {
                     ) {
                         SettingsSubSectionCard(
                             title = "Change wallpaper",
+                            isExpandedInitially = false,
                             onItemClick = {
                                 navController.navigate(AppScreens.ChangeWallpaperScreen.name)
-                            })
-                        
+                            }
+                        ) {}
                     }
                     // Font Section
                     SettingsSectionCard(title = "Font", hasToggle = false, toggleState = false) {
                         SettingsSubSectionCard(
                             title = "Size",
+                            isExpandedInitially = fontSizeSettingExpand,
                             onItemClick = {
-                            
-                            })
+                                fontSizeSettingExpand = !fontSizeSettingExpand
+                            }) {
+                            FontSizeSettingContent()
+                        }
                         Divider()
                         SettingsSubSectionCard(
                             title = "Font",
+                            isExpandedInitially = fontSettingExpand,
                             onItemClick = {
-                            
-                            })
+                                fontSettingExpand = !fontSettingExpand
+                            }) {
+//                           todo implement font setting
+                        }
                         Divider()
                         SettingsSubSectionCard(
-                            title = " Font Color",
+                            title = "Font Color",
+                            isExpandedInitially = fontColorSettingExpand,
                             onItemClick = {
-                            
-                            })
+                                fontColorSettingExpand = !fontColorSettingExpand
+                            }) {
+//                           todo implement color setting
+                        }
                     }
                 }
-                
             }
         }
     )
@@ -156,22 +176,67 @@ fun SettingsSectionCard(
 }
 
 @Composable
-fun SettingsSubSectionCard(title: String, onItemClick: () -> Unit) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp)
-            .clickable { onItemClick() },
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.titleSmall,
-            modifier = Modifier.weight(1f)
-        )
-        Icon(
-            imageVector = Icons.Default.KeyboardArrowRight,
-            contentDescription = "go to $title setting"
-        )
+fun SettingsSubSectionCard(
+    title: String,
+    isExpandedInitially: Boolean,
+    onItemClick: () -> Unit,
+    content: @Composable () -> Unit
+) {
+    Column {
+        
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+                .clickable { onItemClick() },
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleSmall,
+                modifier = Modifier.weight(1f)
+            )
+            Icon(
+                imageVector = Icons.Default.KeyboardArrowRight,
+                contentDescription = "go to $title setting"
+            )
+            
+        }
+        
+        if (isExpandedInitially) {
+            content()
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun FontSizeSettingContent(){
+    val interactionSource = remember { MutableInteractionSource() }
+    val fontManager = FontManager(LocalContext.current)
+    val fontSize = fontManager.getFontSize().toFloat()
+    var sliderPosition by remember { mutableFloatStateOf(fontSize) }
+    
+    Column(modifier = Modifier
+        .padding(8.dp)) {
+        Text(text = sliderPosition.toInt().toString(),
+            fontWeight = FontWeight.Bold)
+        Slider(
+            modifier = Modifier.semantics { contentDescription = "font size" },
+            value = sliderPosition,
+            onValueChange = { sliderPosition = it },
+            valueRange = 25f..40f,
+            steps = 2,
+            interactionSource = interactionSource,
+            onValueChangeFinished = {
+                fontManager.saveFontSize(sliderPosition.toInt())
+            },
+            thumb = {
+                SliderDefaults.Thumb(
+                    interactionSource = interactionSource,
+                    thumbSize = DpSize(20.dp,20.dp)
+                )
+            },
+            )
     }
 }
