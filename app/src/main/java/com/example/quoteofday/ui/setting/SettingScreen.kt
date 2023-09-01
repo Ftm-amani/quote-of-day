@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -14,7 +16,8 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
+import androidx.compose.material.Scaffold
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Switch
@@ -41,9 +44,10 @@ fun SettingsScreen(navController: NavController) {
     var fontColorSettingExpand by remember { mutableStateOf(false) }
     var fontSettingExpand by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
-    
+    val scaffoldState = rememberScaffoldState()
     Scaffold(
         modifier = Modifier.fillMaxSize(),
+        scaffoldState = scaffoldState,
         topBar = {
             AppBar(
                 imageVector = Icons.Default.ArrowBack,
@@ -66,6 +70,7 @@ fun SettingsScreen(navController: NavController) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp)
+                        .verticalScroll(rememberScrollState())
                 
                 ) {
                     // Night Mode Section
@@ -110,13 +115,18 @@ fun SettingsScreen(navController: NavController) {
 //                           todo implement font setting
                         }
                         Divider()
+                        // select color Section
                         SettingsSubSectionCard(
-                            title = "Font Color",
+                            title = "Text Color",
                             isExpandedInitially = fontColorSettingExpand,
                             onItemClick = {
                                 fontColorSettingExpand = !fontColorSettingExpand
                             }) {
-//                           todo implement color setting
+                            BottomSheet(
+                                navController = navController,
+                                onDismiss = {
+                                    //todo save
+                                })
                         }
                     }
                 }
