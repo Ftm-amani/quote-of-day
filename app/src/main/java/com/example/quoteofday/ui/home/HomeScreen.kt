@@ -46,6 +46,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import com.example.quoteofday.data.models.MenuItem
+import com.example.quoteofday.utils.HexToJetpackColor
 import com.example.quoteofday.ui.MainViewModel
 import com.example.quoteofday.ui.favotire.FavoritesViewModel
 import com.example.quoteofday.ui.setting.FontManager
@@ -77,7 +78,8 @@ fun QuoteScreen(
     val selectedBackgroundIndex = backgroundManager.getBackgroundIndex()
     val fontManager = FontManager(LocalContext.current)
     val selectedFontSize = fontManager.getFontSize()
-    
+    val selectedFontColor = fontManager.getFontColor()
+
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
@@ -146,6 +148,7 @@ fun QuoteScreen(
                             ),
                         backgroundIndex = selectedBackgroundIndex,
                         fontSize = selectedFontSize,
+                        fontColor= selectedFontColor.toString(),
                         onFavoriteClick = {
                             favoritesViewModel.toggleQuoteFavorite(quotes[page])
                         },
@@ -171,6 +174,7 @@ fun QuoteItem(
     modifier: Modifier,
     backgroundIndex: Int,
     fontSize: Int,
+    fontColor: String,
     onFavoriteClick: () -> Unit,
     onShareClick: () -> Unit) {
     
@@ -210,6 +214,7 @@ fun QuoteItem(
                     Text(
                         text = quote.text,
                         fontFamily = FontFamily.Serif,
+                        color = HexToJetpackColor.getColor(fontColor),
                         fontWeight = FontWeight.Bold,
                         fontSize = selectedFontSize.sp,
                         textAlign = TextAlign.Center,

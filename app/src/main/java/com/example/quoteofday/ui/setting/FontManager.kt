@@ -16,4 +16,15 @@ class FontManager (context: Context) {
     fun getFontSize(): Int {
         return sharedPreferences.getInt("font_size", 30)
     }
+
+    fun saveFontColor(color: String) {
+        sharedPreferences.edit {
+            putString("font_color", color)
+        }
+    }
+
+    fun getFontColor(): String? {
+        return sharedPreferences.getString("font_color", "FF000000")
+    }
+
 }

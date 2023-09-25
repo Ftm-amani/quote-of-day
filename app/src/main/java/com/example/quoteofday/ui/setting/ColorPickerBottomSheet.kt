@@ -20,64 +20,51 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import com.example.quoteofday.navigation.AppScreens
 import com.github.skydoves.colorpicker.compose.AlphaSlider
 import com.github.skydoves.colorpicker.compose.AlphaTile
 import com.github.skydoves.colorpicker.compose.BrightnessSlider
 import com.github.skydoves.colorpicker.compose.ColorEnvelope
 import com.github.skydoves.colorpicker.compose.HsvColorPicker
 import com.github.skydoves.colorpicker.compose.rememberColorPickerController
-import kotlinx.coroutines.launch
 
 @SuppressLint("CoroutineCreationDuringComposition")
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
 fun BottomSheet(
-    navController: NavController,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
 ) {
     val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-    
-    val scope = rememberCoroutineScope()
-    LaunchedEffect(key1 = bottomSheetState) {
-
-        scope.launch {
-            bottomSheetState.expand()
-        }
+    LaunchedEffect(key1 = Unit) {
+        bottomSheetState.expand()
     }
 
-    ModalBottomSheet(
-        onDismissRequest = {
-            scope.launch {
-                bottomSheetState.hide()
+    if (bottomSheetState.isVisible)
+        ModalBottomSheet(
+            onDismissRequest = {
                 onDismiss()
-            }
-                           },
-        sheetState = bottomSheetState,
-        dragHandle = { BottomSheetDefaults.DragHandle() },
-    ) {
-             ColorPicker(
-                 navController = navController,
-                 onSaveClick = {
-                     onDismiss()
-                 })
-    }
-    
+                               },
+            sheetState = bottomSheetState,
+            dragHandle = { BottomSheetDefaults.DragHandle() }
+        ) {
+            ColorPicker(
+                onSaveClick = {
+                    onDismiss()
+                })
+        }
 }
 
 @Composable
 fun ColorPicker(
-    navController: NavController,
-    onSaveClick:() -> Unit ) {
+    onSaveClick:() -> Unit) {
     val controller = rememberColorPickerController()
-    
+    val fontManager = FontManager(LocalContext.current)
+
     Column(
         modifier = Modifier
             .fillMaxHeight(),
@@ -108,7 +95,7 @@ fun ColorPicker(
                 .padding(16.dp),
             controller = controller,
             onColorChanged = { colorEnvelope: ColorEnvelope ->
-                // do something
+                fontManager.saveFontColor(colorEnvelope.hexCode)
             }
         )
         BrightnessSlider(
@@ -126,7 +113,6 @@ fun ColorPicker(
             controller = controller,
         )
         Button(onClick = {
-            navController.navigate(AppScreens.HomeScreen.name)
             onSaveClick.invoke()
         }) {
             Text("Save")

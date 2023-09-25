@@ -1,12 +1,14 @@
 package com.example.quoteofday.ui.setting
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -17,6 +19,7 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
@@ -25,12 +28,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.quoteofday.navigation.AppScreens
 import com.example.quoteofday.ui.home.AppBar
@@ -123,9 +132,9 @@ fun SettingsScreen(navController: NavController) {
                                 fontColorSettingExpand = !fontColorSettingExpand
                             }) {
                             BottomSheet(
-                                navController = navController,
                                 onDismiss = {
                                     //todo save
+                                 navController.navigate(AppScreens.HomeScreen.name)
                                 })
                         }
                     }
