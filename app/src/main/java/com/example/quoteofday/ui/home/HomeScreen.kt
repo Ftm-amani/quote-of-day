@@ -35,6 +35,7 @@ import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.graphicsLayer
@@ -42,6 +43,8 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.DeviceFontFamilyName
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -79,6 +82,7 @@ fun QuoteScreen(
     val fontManager = FontManager(LocalContext.current)
     val selectedFontSize = fontManager.getFontSize()
     val selectedFontColor = fontManager.getFontColor()
+    val selectedFontFamily = fontManager.getFontFamily()
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -149,6 +153,7 @@ fun QuoteScreen(
                         backgroundIndex = selectedBackgroundIndex,
                         fontSize = selectedFontSize,
                         fontColor= selectedFontColor.toString(),
+                        fontFamily = selectedFontFamily,
                         onFavoriteClick = {
                             favoritesViewModel.toggleQuoteFavorite(quotes[page])
                         },
@@ -174,6 +179,7 @@ fun QuoteItem(
     modifier: Modifier,
     backgroundIndex: Int,
     fontSize: Int,
+    fontFamily: String,
     fontColor: String,
     onFavoriteClick: () -> Unit,
     onShareClick: () -> Unit) {
@@ -183,6 +189,9 @@ fun QuoteItem(
     }
     val selectedFontSize by remember {
         mutableIntStateOf(fontSize)
+    }
+    val selectedFontFamily by remember {
+        mutableStateOf(fontFamily)
     }
     val backgroundImage: Painter = painterResource(backgroundOptions[selectedBackgroundIndex])
     
@@ -213,7 +222,9 @@ fun QuoteItem(
                 ) {
                     Text(
                         text = quote.text,
-                        fontFamily = FontFamily.Serif,
+                        fontFamily = FontFamily(
+                            Font(DeviceFontFamilyName(selectedFontFamily), FontWeight.Normal),
+                        ),
                         color = HexToJetpackColor.getColor(fontColor),
                         fontWeight = FontWeight.Bold,
                         fontSize = selectedFontSize.sp,

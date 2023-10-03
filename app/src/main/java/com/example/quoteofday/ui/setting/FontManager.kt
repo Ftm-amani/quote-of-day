@@ -27,4 +27,15 @@ class FontManager (context: Context) {
         return sharedPreferences.getString("font_color", "FF000000")
     }
 
+    fun saveFontFamily(fontFamily: String) {
+        sharedPreferences.edit {
+            putString("font_family", fontFamily)
+        }
+    }
+
+    fun getFontFamily(): String {
+            return sharedPreferences
+                .getString("font_family", "DefaultFont") ?: "DefaultFont"
+        }
+
 }
