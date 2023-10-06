@@ -36,7 +36,7 @@ import com.github.skydoves.colorpicker.compose.rememberColorPickerController
 @SuppressLint("CoroutineCreationDuringComposition")
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
-fun BottomSheet(
+fun ColorPickerBottomSheet(
     onDismiss: () -> Unit,
 ) {
     val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -46,9 +46,7 @@ fun BottomSheet(
 
     if (bottomSheetState.isVisible)
         ModalBottomSheet(
-            onDismissRequest = {
-                onDismiss()
-                               },
+            onDismissRequest = {},
             sheetState = bottomSheetState,
             dragHandle = { BottomSheetDefaults.DragHandle() }
         ) {

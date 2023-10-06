@@ -127,10 +127,9 @@ fun SettingsScreen(navController: NavController) {
                             onItemClick = {
                                 fontColorSettingExpand = !fontColorSettingExpand
                             }) {
-                            BottomSheet(
+                            ColorPickerBottomSheet(
                                 onDismiss = {
-                                    //todo save
-                                 navController.navigate(AppScreens.HomeScreen.name)
+                                    navController.navigate(AppScreens.HomeScreen.name)
                                 })
                         }
                     }
