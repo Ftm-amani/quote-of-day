@@ -1,6 +1,6 @@
 package com.example.quoteofday.data
 
-enum class QuotesType {
+ enum class QuotesTypeName {
         MENTAL_HEALTH,
         SELF_CONFIDENCE,
         HEALTHY_RELATIONSHIPS,

@@ -2,15 +2,18 @@ package com.example.quoteofday.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.quoteofday.data.models.Quotes
+import com.example.quoteofday.data.models.QuotesType
 import com.example.quoteofday.di.ApplicationScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Provider
 
-@Database(entities = [Quotes::class] , version = 1, exportSchema = false )
+@Database(entities = [Quotes::class, QuotesType::class] , version = 1, exportSchema = false )
+@TypeConverters(QuotesTypeConverter::class)
 abstract class QuotesDatabase : RoomDatabase(){
     
     abstract fun quotesDao() : QuoteDao

@@ -7,7 +7,8 @@ enum class AppScreens {
 	HomeScreen,
 	FavoriteScreen,
 	SettingScreen,
-	ChangeWallpaperScreen;
+	ChangeWallpaperScreen,
+	ChooseCategoryScreen;
 	
 	companion object {
 		fun fromRoute(route: String?): AppScreens
@@ -17,6 +18,7 @@ enum class AppScreens {
 			FavoriteScreen.name -> FavoriteScreen
 			SettingScreen.name -> SettingScreen
 			ChangeWallpaperScreen.name -> ChangeWallpaperScreen
+			ChooseCategoryScreen.name -> ChooseCategoryScreen
 			null -> HomeScreen
 			else -> throw IllegalArgumentException("Route $route is not recognized")
 		}

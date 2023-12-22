@@ -13,6 +13,8 @@ import com.example.quoteofday.ui.favotire.FavoriteScreen
 import com.example.quoteofday.ui.favotire.FavoritesViewModel
 import com.example.quoteofday.ui.home.QuoteScreen
 import com.example.quoteofday.ui.setting.SettingsScreen
+import com.example.quoteofday.ui.setting.category.ChooseCategoriesViewModel
+import com.example.quoteofday.ui.setting.category.ChooseCategoryScreen
 import com.example.quoteofday.ui.setting.wallpaper.ChangeWallpaperScreen
 
 @ExperimentalComposeUiApi
@@ -56,7 +58,14 @@ fun AppNavigation(showDialog: Boolean, sharedPreferences: SharedPreferences) {
 				navController = navController,
 			)
 		}
-	}
+		composable(AppScreens.ChooseCategoryScreen.name) {
+			val chooseCategoriesViewModel = hiltViewModel<ChooseCategoriesViewModel>()
 
+			ChooseCategoryScreen(
+				navController = navController,
+				viewModel = chooseCategoriesViewModel
+			)
+		}
+	}
 }
 

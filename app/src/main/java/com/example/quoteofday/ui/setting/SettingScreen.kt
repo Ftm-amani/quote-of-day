@@ -133,6 +133,20 @@ fun SettingsScreen(navController: NavController) {
                                 })
                         }
                     }
+                    //Category Section
+                    SettingsSectionCard(
+                        title = "Category",
+                        hasToggle = false,
+                        toggleState = false
+                    ) {
+                        SettingsSubSectionCard(
+                            title = "Choose Categories",
+                            isExpandedInitially = false,
+                            onItemClick = {
+                                navController.navigate(AppScreens.ChooseCategoryScreen.name)
+                            }
+                        ) {}
+                    }
                 }
             }
         }
@@ -225,7 +239,7 @@ fun SettingsSubSectionCard(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FontSizeSettingContent(){
+fun FontSizeSettingContent() {
     val interactionSource = remember { MutableInteractionSource() }
     val fontManager = FontManager(LocalContext.current)
     val fontSize = fontManager.getFontSize().toFloat()
@@ -252,10 +266,10 @@ fun FontSizeSettingContent(){
             thumb = {
                 SliderDefaults.Thumb(
                     interactionSource = interactionSource,
-                    thumbSize = DpSize(20.dp,20.dp)
+                    thumbSize = DpSize(20.dp, 20.dp)
                 )
             },
-            )
+        )
     }
 }
 
