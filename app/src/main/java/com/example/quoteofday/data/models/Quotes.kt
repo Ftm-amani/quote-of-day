@@ -20,18 +20,20 @@ data class Quotes(
 
     @TypeConverters(QuotesTypeConverter::class)
     @ColumnInfo(name = "type")
-    var type: QuotesType = QuotesType(QuotesTypeName.MENTAL_HEALTH, true),
+    var type: QuotesType = QuotesType(0, QuotesTypeName.MENTAL_HEALTH, true),
 
     @ColumnInfo(name = "isFave")
     var isFave: Boolean? = false
 ) : Parcelable {
-    constructor() : this(0, "", QuotesType(QuotesTypeName.MENTAL_HEALTH, true), false)
+    constructor() : this(0, "", QuotesType(0, QuotesTypeName.MENTAL_HEALTH, true), false)
 }
 
 @Entity(tableName = "quotes_types")
 @Parcelize
 data class QuotesType(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0,
+
     @ColumnInfo(name = "QuotesTypeName")
     var name: QuotesTypeName = QuotesTypeName.MENTAL_HEALTH,
 

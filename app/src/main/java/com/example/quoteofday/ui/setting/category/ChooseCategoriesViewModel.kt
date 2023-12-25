@@ -22,6 +22,7 @@ class ChooseCategoriesViewModel @Inject constructor(
 
         updatedQuotes.forEach {
             roomFunctions.updateQuotes(it)
+            roomFunctions.updateQuotesType(it.type)
         }
     }
 }

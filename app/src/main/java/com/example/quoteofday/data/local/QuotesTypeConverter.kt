@@ -7,12 +7,12 @@ import com.example.quoteofday.data.models.QuotesType
 class QuotesTypeConverter {
     @TypeConverter
     fun fromQuotesType(quotesType: QuotesType): String {
-        return "${quotesType.name.name},${quotesType.isSelected}"
+        return "${quotesType.id},${quotesType.name.name},${quotesType.isSelected}"
     }
 
     @TypeConverter
     fun toQuotesType(data: String): QuotesType {
         val parts = data.split(",")
-        return QuotesType(QuotesTypeName.valueOf(parts[0]), parts[1].toBoolean())
+        return QuotesType(parts[0].toInt(), QuotesTypeName.valueOf(parts[1]), parts[2].toBoolean())
     }
 }

@@ -7,7 +7,7 @@ import com.example.quoteofday.data.QuotesTypeName
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
@@ -48,7 +48,7 @@ fun ChooseCategoryScreen(
         )
 
         LazyColumn {
-            items(categories) { category ->
+            itemsIndexed (categories) { index,category ->
                 val checked = remember { mutableStateOf(false) }
 
                 Column {
@@ -60,7 +60,7 @@ fun ChooseCategoryScreen(
                             checked = checked.value,
                             onCheckedChange = { isChecked ->
                                 checked.value = isChecked
-                                val quoteType = QuotesType(category, checked.value)
+                                val quoteType = QuotesType(index, category, checked.value)
                                 if (isChecked) {
                                     selectedCategories.add(quoteType)
                                 } else {

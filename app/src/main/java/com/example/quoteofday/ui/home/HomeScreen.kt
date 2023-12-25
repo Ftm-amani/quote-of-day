@@ -65,8 +65,15 @@ import kotlin.math.absoluteValue
 fun QuoteScreen(
     navController: NavController,
     viewModel: MainViewModel,
-    favoritesViewModel: FavoritesViewModel) {
-    val quotes by viewModel.getAllRepos().collectAsState(initial = emptyList())
+    favoritesViewModel: FavoritesViewModel,
+    isFromCategoryScreen:Boolean)
+{
+
+    val quotes by if (isFromCategoryScreen) {
+        viewModel.getSelectedQuotes().collectAsState(initial = emptyList())
+    } else {
+        viewModel.getAllRepos().collectAsState(initial = emptyList())
+    }
     val pagerState = rememberPagerState(
         initialPage = 0,
         initialPageOffsetFraction = 0F

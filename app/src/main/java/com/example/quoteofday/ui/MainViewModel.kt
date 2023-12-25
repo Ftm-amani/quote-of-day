@@ -1,5 +1,6 @@
 package com.example.quoteofday.ui
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.quoteofday.data.local.ListOfQuotes
@@ -13,11 +14,19 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val roomFunctions: RoomFunctions
     ) : ViewModel() {
-    
-    suspend fun insert() = roomFunctions.addQuote(ListOfQuotes.allQuotes[0])
-    
+
+    suspend fun insert() {
+        ListOfQuotes.allQuotes.forEach {
+            roomFunctions.addQuote(it)
+            roomFunctions.addQuoteTypes(it.type)
+
+        }
+    }
+
     //is a live data
     fun getAllRepos() = roomFunctions.getAllQuotes()
+
+    fun getSelectedQuotes() = roomFunctions.getSelectedQuotes()
 
     fun removeFaveRepository(quotes: Quotes) = viewModelScope.launch {
         roomFunctions.removeQuote(quotes)
