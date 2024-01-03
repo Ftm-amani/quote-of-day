@@ -86,12 +86,12 @@ fun FavoriteQuoteItem(quote: Quotes) {
             modifier = Modifier.padding(8.dp)
         ) {
             Text(
-                text = quote.text,
+                text = quote.quoteText,
                 style = MaterialTheme.typography.bodyMedium
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = quote.type.toString(),
+                text = quote.quoteName,
                 color = Color.Gray,
                 style = MaterialTheme.typography.bodyMedium
             )

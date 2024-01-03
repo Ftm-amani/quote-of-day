@@ -74,6 +74,7 @@ fun QuoteScreen(
     } else {
         viewModel.getAllRepos().collectAsState(initial = emptyList())
     }
+
     val pagerState = rememberPagerState(
         initialPage = 0,
         initialPageOffsetFraction = 0F
@@ -167,7 +168,7 @@ fun QuoteScreen(
                         onShareClick = {
                             val shareIntent = Intent(Intent.ACTION_SEND)
                             shareIntent.type = "text/plain"
-                            shareIntent.putExtra(Intent.EXTRA_TEXT, quotes[page].text)
+                            shareIntent.putExtra(Intent.EXTRA_TEXT, quotes[page].quoteText)
                             val chooser = Intent.createChooser(shareIntent, "Share Quote")
                             context.startActivity(chooser)
                         }
@@ -228,7 +229,7 @@ fun QuoteItem(
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Text(
-                        text = quote.text,
+                        text = quote.quoteText,
                         fontFamily = FontFamily(
                             Font(DeviceFontFamilyName(selectedFontFamily), FontWeight.Normal),
                         ),

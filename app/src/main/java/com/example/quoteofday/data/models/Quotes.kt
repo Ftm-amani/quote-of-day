@@ -4,9 +4,6 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
-import com.example.quoteofday.data.QuotesTypeName
-import com.example.quoteofday.data.local.QuotesTypeConverter
 import kotlinx.parcelize.Parcelize
 
 @Entity(tableName = "quotes_table")
@@ -15,28 +12,23 @@ data class Quotes(
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0,
 
-    @ColumnInfo(name = "text")
-    var text: String = "",
+    @ColumnInfo(name = "quote_text")
+    var quoteText: String = "",
 
-    @TypeConverters(QuotesTypeConverter::class)
-    @ColumnInfo(name = "type")
-    var type: QuotesType = QuotesType(0, QuotesTypeName.MENTAL_HEALTH, true),
+    @ColumnInfo(name = "quote_name")
+    var quoteName: String = "",
 
-    @ColumnInfo(name = "isFave")
-    var isFave: Boolean? = false
+    @ColumnInfo(name = "is_fave")
+    var isFave: Boolean = false,
+
+    @ColumnInfo(name = "is_selected")
+    var isSelected: Boolean = true
 ) : Parcelable {
-    constructor() : this(0, "", QuotesType(0, QuotesTypeName.MENTAL_HEALTH, true), false)
+    constructor() : this(0, "", "", false, true)
 }
 
-@Entity(tableName = "quotes_types")
-@Parcelize
-data class QuotesType(
-    @PrimaryKey(autoGenerate = true)
-    var id: Int = 0,
 
-    @ColumnInfo(name = "QuotesTypeName")
-    var name: QuotesTypeName = QuotesTypeName.MENTAL_HEALTH,
-
-    @ColumnInfo(name = "isSelected")
-    var isSelected: Boolean = true
-) : Parcelable
+data class QuoteNameAndSelection(
+    val quote_name: String,
+    val is_selected: Boolean
+)

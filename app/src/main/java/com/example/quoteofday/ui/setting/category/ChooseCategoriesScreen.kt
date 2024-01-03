@@ -3,11 +3,10 @@ package com.example.quoteofday.ui.setting.category
 import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.example.quoteofday.data.QuotesTypeName
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
@@ -17,7 +16,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.quoteofday.data.models.QuotesType
+import com.example.quoteofday.data.models.*
 import com.example.quoteofday.navigation.AppScreens
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,8 +28,8 @@ fun ChooseCategoryScreen(
     navController: NavController,
     viewModel: ChooseCategoriesViewModel,
 ) {
-    val selectedCategories = mutableListOf<QuotesType>()
-    val categories = QuotesTypeName.values().toList() // List of all available categories
+    val distinctQuotes by viewModel.distinctQuoteNamesAndSelection.collectAsState(emptyList())
+    val selectedCategories = mutableListOf<QuoteNameAndSelection>()
 
     Column(
         modifier = Modifier
@@ -48,8 +47,8 @@ fun ChooseCategoryScreen(
         )
 
         LazyColumn {
-            itemsIndexed (categories) { index,category ->
-                val checked = remember { mutableStateOf(false) }
+            items(distinctQuotes) { category ->
+                val checked = remember { mutableStateOf(category.is_selected) }
 
                 Column {
                     Row(
@@ -60,19 +59,20 @@ fun ChooseCategoryScreen(
                             checked = checked.value,
                             onCheckedChange = { isChecked ->
                                 checked.value = isChecked
-                                val quoteType = QuotesType(index, category, checked.value)
+                                val quoteType =
+                                    QuoteNameAndSelection(category.quote_name, checked.value)
                                 if (isChecked) {
-                                    selectedCategories.add(quoteType)
+                                    if (!selectedCategories.contains(quoteType)) selectedCategories
+                                        .add(quoteType)
                                 } else {
-                                    selectedCategories.removeIf {
-                                        it.name == quoteType.name
-                                    }
+                                    if (!selectedCategories.contains(quoteType)) selectedCategories
+                                        .add(quoteType)
                                 }
                             },
                         )
                         Text(
                             modifier = Modifier.padding(start = 2.dp),
-                            text = category.name
+                            text = category.quote_name
                         )
                     }
                 }
@@ -81,7 +81,7 @@ fun ChooseCategoryScreen(
 
         Button(onClick = {
             CoroutineScope(Dispatchers.IO).launch {
-                viewModel.replaceType(selectedCategories)
+                viewModel.updateQuotesByType(selectedCategories)
             }
             navController.navigate(AppScreens.HomeScreen.name)
         }) {

@@ -3,6 +3,8 @@ package com.example.quoteofday.ui
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.quoteofday.TAG
+import com.example.quoteofday.data.QuotesTypeName
 import com.example.quoteofday.data.local.ListOfQuotes
 import com.example.quoteofday.data.local.RoomFunctions
 import com.example.quoteofday.data.models.Quotes
@@ -18,12 +20,9 @@ class MainViewModel @Inject constructor(
     suspend fun insert() {
         ListOfQuotes.allQuotes.forEach {
             roomFunctions.addQuote(it)
-            roomFunctions.addQuoteTypes(it.type)
-
         }
     }
 
-    //is a live data
     fun getAllRepos() = roomFunctions.getAllQuotes()
 
     fun getSelectedQuotes() = roomFunctions.getSelectedQuotes()
