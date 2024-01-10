@@ -36,12 +36,10 @@ fun AppNavigation(showDialog: Boolean, sharedPreferences: SharedPreferences) {
 			val mainViewModel = hiltViewModel<MainViewModel>()
 			val favoritesViewModel = hiltViewModel<FavoritesViewModel>()
 			// Check if navigation is from category screen
-			val isFromCategoryScreen = navController.previousBackStackEntry?.destination?.route == AppScreens.ChooseCategoryScreen.name
 			QuoteScreen(
 				navController = navController,
 				viewModel = mainViewModel,
 				favoritesViewModel = favoritesViewModel,
-				isFromCategoryScreen = isFromCategoryScreen
 			)
 		}
 		composable(AppScreens.FavoriteScreen.name) {
