@@ -1,10 +1,7 @@
 package com.example.quoteofday.ui
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.quoteofday.TAG
-import com.example.quoteofday.data.QuotesTypeName
 import com.example.quoteofday.data.local.ListOfQuotes
 import com.example.quoteofday.data.local.RoomFunctions
 import com.example.quoteofday.data.models.Quotes
