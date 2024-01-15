@@ -56,6 +56,7 @@ fun SettingsScreen(navController: NavController) {
         topBar = {
             AppBar(
                 imageVector = Icons.Default.ArrowBack,
+                title = "Setting",
                 onNavigationIconClick = {
                     scope.launch {
                         navController.navigate(AppScreens.HomeScreen.name)

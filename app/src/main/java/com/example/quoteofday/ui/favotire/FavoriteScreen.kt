@@ -32,6 +32,7 @@ fun FavoriteScreen(navController: NavController, viewModel: FavoritesViewModel) 
         topBar = {
             AppBar(
                 imageVector = Icons.Default.ArrowBack,
+                title = "Faves",
                 onNavigationIconClick = {
                     scope.launch {
                         navController.navigate(AppScreens.HomeScreen.name)

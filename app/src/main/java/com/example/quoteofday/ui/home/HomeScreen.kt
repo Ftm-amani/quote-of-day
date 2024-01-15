@@ -91,6 +91,7 @@ fun QuoteScreen(
         topBar = {
             AppBar(
                 imageVector = Icons.Default.Menu,
+                title = "Quote Of Day",
                 onNavigationIconClick = {
                     scope.launch {
                         scaffoldState.drawerState.open()
