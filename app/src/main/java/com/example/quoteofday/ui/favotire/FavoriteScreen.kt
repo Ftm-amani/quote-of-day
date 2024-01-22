@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.quoteofday.data.models.Quotes
 import com.example.quoteofday.navigation.AppScreens
-import com.example.quoteofday.ui.home.AppBar
+import com.example.quoteofday.components.AppBar
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")

@@ -48,6 +48,9 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import com.example.quoteofday.components.AppBar
+import com.example.quoteofday.components.DrawerBody
+import com.example.quoteofday.components.DrawerHeader
 import com.example.quoteofday.data.models.MenuItem
 import com.example.quoteofday.utils.HexToJetpackColor
 import com.example.quoteofday.ui.MainViewModel

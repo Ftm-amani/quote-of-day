@@ -1,4 +1,4 @@
-package com.example.quoteofday.ui.home
+package com.example.quoteofday.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Spacer
@@ -21,6 +21,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.quoteofday.data.models.MenuItem
+import com.example.quoteofday.ui.theme.QuoteOfDayTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -29,25 +30,32 @@ fun AppBar(
     title: String,
     onNavigationIconClick: () -> Unit
 ) {
-    TopAppBar(
-        title = {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(4.dp)
+    QuoteOfDayTheme {
+        QodBackground(modifier = Modifier
+            .fillMaxWidth()
+            .height(50.dp)
+        ) {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = title,
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(4.dp)
+                    )
+                },
+                modifier = Modifier.fillMaxWidth(),
+                navigationIcon = {
+                    IconButton(onClick = onNavigationIconClick) {
+                        Icon(
+                            imageVector = imageVector,
+                            contentDescription = "Toggle drawer"
+                        )
+                    }
+                }
             )
-        },
-        modifier = Modifier.fillMaxWidth(),
-        navigationIcon = {
-            IconButton(onClick = onNavigationIconClick) {
-                Icon(
-                    imageVector = imageVector,
-                    contentDescription = "Toggle drawer"
-                )
-            }
         }
-    )
+    }
 }
 
 @Composable
