@@ -1,5 +1,6 @@
 package com.example.quoteofday.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -17,9 +18,12 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TopAppBar
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.example.quoteofday.R
 import com.example.quoteofday.data.models.MenuItem
 import com.example.quoteofday.ui.theme.QuoteOfDayTheme
 
@@ -66,7 +70,11 @@ fun DrawerHeader() {
             .padding(vertical = 64.dp),
         contentAlignment = Alignment.Center
     ) {
-        Text(text = "Header", fontSize = 60.sp)
+        Image(
+            painter = painterResource(id = R.drawable.app_icon),
+            contentDescription = null,
+            contentScale = ContentScale.Crop
+        )
     }
 }
 
