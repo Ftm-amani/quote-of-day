@@ -38,6 +38,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
@@ -58,6 +59,7 @@ import com.example.quoteofday.ui.favotire.FavoritesViewModel
 import com.example.quoteofday.ui.setting.FontManager
 import com.example.quoteofday.ui.setting.wallpaper.BackgroundManager
 import com.example.quoteofday.ui.setting.wallpaper.backgroundOptions
+import com.example.quoteofday.ui.theme.LocalBackgroundTheme
 import com.google.android.material.animation.AnimationUtils.lerp
 import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
@@ -88,6 +90,7 @@ fun QuoteScreen(
     val selectedFontSize = fontManager.getFontSize()
     val selectedFontColor = fontManager.getFontColor()
     val selectedFontFamily = fontManager.getFontFamily()
+    val color = LocalBackgroundTheme.current.color
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -104,6 +107,7 @@ fun QuoteScreen(
         },
         drawerGesturesEnabled = scaffoldState.drawerState.isOpen,
         drawerContent = {
+
             DrawerHeader()
             DrawerBody(
                 items = listOf(
@@ -130,8 +134,10 @@ fun QuoteScreen(
                             navController.navigate(it.id)
                 }
             )
-        }
-    ) { paddingValue ->
+        },
+        drawerBackgroundColor = if (color == Color.Unspecified) Color.Transparent else color,
+
+        ) { paddingValue ->
         
         Surface(
             modifier = Modifier

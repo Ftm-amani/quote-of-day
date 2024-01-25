@@ -2,6 +2,7 @@ package com.example.quoteofday.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -17,6 +18,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TopAppBar
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -34,6 +36,8 @@ fun AppBar(
     title: String,
     onNavigationIconClick: () -> Unit
 ) {
+    val iconTint = if (isSystemInDarkTheme()) Color.White else Color.Black
+
     QuoteOfDayTheme {
         QodBackground(modifier = Modifier
             .fillMaxWidth()
@@ -53,7 +57,8 @@ fun AppBar(
                     IconButton(onClick = onNavigationIconClick) {
                         Icon(
                             imageVector = imageVector,
-                            contentDescription = "Toggle drawer"
+                            contentDescription = "Toggle drawer",
+                            tint = iconTint
                         )
                     }
                 }
@@ -85,26 +90,37 @@ fun DrawerBody(
     itemTextStyle: TextStyle = TextStyle(fontSize = 18.sp),
     onItemClick: (MenuItem) -> Unit
 ) {
-    LazyColumn(modifier) {
-        items(items) { item ->
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable {
-                        onItemClick(item)
+    val iconTint = if (isSystemInDarkTheme()) Color.White else Color.Black
+
+    QuoteOfDayTheme {
+        QodBackground(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+        ) {
+            LazyColumn(modifier) {
+                items(items) { item ->
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable {
+                                onItemClick(item)
+                            }
+                            .padding(16.dp)
+                    ) {
+                        Icon(
+                            imageVector = item.icon,
+                            contentDescription = item.contentDescription,
+                            tint = iconTint
+                        )
+                        Spacer(modifier = Modifier.width(16.dp))
+                        Text(
+                            text = item.title,
+                            style = itemTextStyle,
+                            modifier = Modifier.weight(1f)
+                        )
                     }
-                    .padding(16.dp)
-            ) {
-                Icon(
-                    imageVector = item.icon,
-                    contentDescription = item.contentDescription
-                )
-                Spacer(modifier = Modifier.width(16.dp))
-                Text(
-                    text = item.title,
-                    style = itemTextStyle,
-                    modifier = Modifier.weight(1f)
-                )
+                }
             }
         }
     }

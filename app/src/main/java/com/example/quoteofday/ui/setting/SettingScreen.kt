@@ -39,6 +39,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.quoteofday.navigation.AppScreens
 import com.example.quoteofday.components.AppBar
+import com.example.quoteofday.components.QodBackground
+import com.example.quoteofday.ui.theme.QuoteOfDayTheme
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -50,6 +52,7 @@ fun SettingsScreen(navController: NavController) {
     var fontSettingExpand by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
     val scaffoldState = rememberScaffoldState()
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         scaffoldState = scaffoldState,
@@ -65,89 +68,101 @@ fun SettingsScreen(navController: NavController) {
             )
         },
         content = { paddingValue ->
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(
-                        top = paddingValue.calculateTopPadding(),
-                    )
-            ) {
-                Column(
+            QuoteOfDayTheme {
+                QodBackground(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp)
-                        .verticalScroll(rememberScrollState())
-                
+                        .wrapContentHeight()
                 ) {
-                    // Night Mode Section
-                    SettingsSectionCard(
-                        title = "Night Mode",
-                        hasToggle = true,
-                        toggleState = darkMode
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(
+                            top = paddingValue.calculateTopPadding(),
+                        )
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                            .verticalScroll(rememberScrollState())
+
                     ) {
-                    
-                    }
-                    // Quote Wallpaper Section
-                    SettingsSectionCard(
-                        title = "Quote Wallpaper",
-                        hasToggle = false,
-                        toggleState = false
-                    ) {
-                        SettingsSubSectionCard(
-                            title = "Change wallpaper",
-                            isExpandedInitially = false,
-                            onItemClick = {
-                                navController.navigate(AppScreens.ChangeWallpaperScreen.name)
-                            }
-                        ) {}
-                    }
-                    // Font Section
-                    SettingsSectionCard(title = "Font", hasToggle = false, toggleState = false) {
-                        SettingsSubSectionCard(
-                            title = "Size",
-                            isExpandedInitially = fontSizeSettingExpand,
-                            onItemClick = {
-                                fontSizeSettingExpand = !fontSizeSettingExpand
-                            }) {
-                            FontSizeSettingContent()
+                        // Night Mode Section
+                        SettingsSectionCard(
+                            title = "Night Mode",
+                            hasToggle = true,
+                            toggleState = darkMode
+                        ) {
+
                         }
-                        Divider()
-                        SettingsSubSectionCard(
+                        // Quote Wallpaper Section
+                        SettingsSectionCard(
+                            title = "Quote Wallpaper",
+                            hasToggle = false,
+                            toggleState = false
+                        ) {
+                            SettingsSubSectionCard(
+                                title = "Change wallpaper",
+                                isExpandedInitially = false,
+                                onItemClick = {
+                                    navController.navigate(AppScreens.ChangeWallpaperScreen.name)
+                                }
+                            ) {}
+                        }
+                        // Font Section
+                        SettingsSectionCard(
                             title = "Font",
-                            isExpandedInitially = fontSettingExpand,
-                            onItemClick = {
-                                fontSettingExpand = !fontSettingExpand
-                            }) {
-                            FontFamilySettingContent()
-                        }
-                        Divider()
-                        // select color Section
-                        SettingsSubSectionCard(
-                            title = "Text Color",
-                            isExpandedInitially = fontColorSettingExpand,
-                            onItemClick = {
-                                fontColorSettingExpand = !fontColorSettingExpand
-                            }) {
-                            ColorPickerBottomSheet(
-                                onDismiss = {
-                                    navController.navigate(AppScreens.HomeScreen.name)
-                                })
-                        }
-                    }
-                    //Category Section
-                    SettingsSectionCard(
-                        title = "Category",
-                        hasToggle = false,
-                        toggleState = false
-                    ) {
-                        SettingsSubSectionCard(
-                            title = "Choose Categories",
-                            isExpandedInitially = false,
-                            onItemClick = {
-                                navController.navigate(AppScreens.ChooseCategoryScreen.name)
+                            hasToggle = false,
+                            toggleState = false
+                        ) {
+                            SettingsSubSectionCard(
+                                title = "Size",
+                                isExpandedInitially = fontSizeSettingExpand,
+                                onItemClick = {
+                                    fontSizeSettingExpand = !fontSizeSettingExpand
+                                }) {
+                                FontSizeSettingContent()
                             }
-                        ) {}
+                            Divider()
+                            SettingsSubSectionCard(
+                                title = "Font",
+                                isExpandedInitially = fontSettingExpand,
+                                onItemClick = {
+                                    fontSettingExpand = !fontSettingExpand
+                                }) {
+                                FontFamilySettingContent()
+                            }
+                            Divider()
+                            // select color Section
+                            SettingsSubSectionCard(
+                                title = "Text Color",
+                                isExpandedInitially = fontColorSettingExpand,
+                                onItemClick = {
+                                    fontColorSettingExpand = !fontColorSettingExpand
+                                }) {
+                                ColorPickerBottomSheet(
+                                    onDismiss = {
+                                        navController.navigate(AppScreens.HomeScreen.name)
+                                    })
+                            }
+                        }
+                        //Category Section
+                        SettingsSectionCard(
+                            title = "Category",
+                            hasToggle = false,
+                            toggleState = false
+                        ) {
+                            SettingsSubSectionCard(
+                                title = "Choose Categories",
+                                isExpandedInitially = false,
+                                onItemClick = {
+                                    navController.navigate(AppScreens.ChooseCategoryScreen.name)
+                                }
+                            ) {}
+                        }
                     }
+                }
                 }
             }
         }
@@ -162,7 +177,7 @@ fun SettingsSectionCard(
     content: @Composable () -> Unit
 ) {
     var toggle by remember { mutableStateOf(toggleState) }
-    
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -181,7 +196,7 @@ fun SettingsSectionCard(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                
+
                 Text(
                     text = title,
                     style = MaterialTheme.typography.titleLarge,
@@ -212,7 +227,7 @@ fun SettingsSubSectionCard(
     content: @Composable () -> Unit
 ) {
     Column {
-        
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -229,9 +244,9 @@ fun SettingsSubSectionCard(
                 imageVector = Icons.Default.KeyboardArrowRight,
                 contentDescription = "go to $title setting"
             )
-            
+
         }
-        
+
         if (isExpandedInitially) {
             content()
         }
