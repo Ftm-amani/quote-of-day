@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -40,6 +41,7 @@ import androidx.navigation.NavController
 import com.example.quoteofday.navigation.AppScreens
 import com.example.quoteofday.components.AppBar
 import com.example.quoteofday.components.QodBackground
+import com.example.quoteofday.ui.theme.LocalBackgroundTheme
 import com.example.quoteofday.ui.theme.QuoteOfDayTheme
 import kotlinx.coroutines.launch
 
@@ -302,6 +304,7 @@ fun FontFamilySettingContent() {
     val fontManager = FontManager(LocalContext.current)
     val currentFont = fontManager.getFontFamily()
     var selectedFont by remember { mutableStateOf(currentFont) }
+    val itemBorderColor = if (isSystemInDarkTheme()) Color.White else Color.Black
 
     FlowRow(
         modifier = Modifier,
@@ -310,6 +313,8 @@ fun FontFamilySettingContent() {
         maxItemsInEachRow = fonts.size,
     ) {
         fonts.forEach { font ->
+            val color = LocalBackgroundTheme.current.color
+
             Box(
                 modifier = Modifier
                     .padding(8.dp)
@@ -324,19 +329,21 @@ fun FontFamilySettingContent() {
                     if (font == selectedFont) {
                         Modifier
                             .border(
-                                width = 0.dp,
-                                color = Color.Black,
+                                width = 1.dp,
+                                color = itemBorderColor,
                                 shape = RoundedCornerShape(8.dp)
                             )
                             .background(
-                                color = Color.LightGray,
+                                color = if (color == Color.Unspecified) Color.Transparent
+                                else color,
                                 shape = RoundedCornerShape(4.dp)
                             )
                             .padding(8.dp)
                     } else {
                         Modifier
                             .background(
-                                color = Color.LightGray,
+                                if (color == Color.Unspecified) Color.Transparent
+                                else color,
                                 shape = RoundedCornerShape(4.dp)
                             )
                             .padding(8.dp)
