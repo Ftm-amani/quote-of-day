@@ -12,12 +12,16 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,7 +33,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.quoteofday.R
+import com.example.quoteofday.components.AppBar
 import com.example.quoteofday.navigation.AppScreens
+import kotlinx.coroutines.launch
 
 val backgroundOptions = listOf(
     R.drawable.back,
@@ -38,38 +44,55 @@ val backgroundOptions = listOf(
     R.drawable.back3,
     R.drawable.back4,
 )
+
 @Composable
 fun ChangeWallpaperScreen(
     navController: NavController,
 ) {
-    
-    Column(
+    val scope = rememberCoroutineScope()
+    Scaffold(
         modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = "Choose Background",
-            style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.padding(20.dp),
-            fontWeight = FontWeight.Bold,
+        contentColor = MaterialTheme.colorScheme.background,
+        topBar = {
+            AppBar(
+                imageVector = Icons.Default.ArrowBack,
+                title = "Choose Background",
+                onNavigationIconClick = {
+                    scope.launch {
+                        navController.navigate(AppScreens.SettingScreen.name)
+                    }
+                }
             )
-    
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
+        },
+    ) { paddingValue ->
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                ) {
-            itemsIndexed(backgroundOptions){ index, item ->
-                BackgroundItems(item = item, index = index, navController = navController )
-                
+                .fillMaxSize()
+                .padding(
+                    top = paddingValue.calculateTopPadding(),
+                    start = 16.dp,
+                    end = 16.dp,
+                    bottom = 16.dp
+                ),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                itemsIndexed(backgroundOptions) { index, item ->
+                    BackgroundItems(item = item, index = index, navController = navController)
+
+                }
             }
         }
     }
 }
 
 @Composable
-fun BackgroundItems(item :Int, index: Int, navController: NavController){
+fun BackgroundItems(item: Int, index: Int, navController: NavController) {
     val backgroundManager = BackgroundManager(LocalContext.current)
     var selectedBackgroundIndex by remember { mutableStateOf(backgroundManager.getBackgroundIndex()) }
     Box(

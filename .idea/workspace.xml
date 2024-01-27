@@ -9,24 +9,8 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33b7c096-3e24-4ea8-abba-3fcfd8203ae1" name="Changes" comment="setting up theme">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/components/BackgroundTheme.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/theme/Background.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/theme/Gradient.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/theme/Tint.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/favotire/FavoriteScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/favotire/FavoriteScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/home/Drawer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/components/Drawer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/home/HomeScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/home/HomeScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/setting/SettingScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/setting/SettingScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/theme/Color.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/theme/Color.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/theme/Shape.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/theme/Shape.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/theme/Theme.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/theme/Theme.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/theme/Type.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/theme/Type.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+    <list default="true" id="33b7c096-3e24-4ea8-abba-3fcfd8203ae1" name="Changes" comment="fix color issues in dark mode in SettingsScreen">
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/setting/category/ChooseCategoriesScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/setting/category/ChooseCategoriesScreen.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,13 +99,12 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "com.android.tools.idea.streaming.zoom.toolbar.visible": "false",
     "com.google.services.firebase.aqiPopupShown": "true",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/lappixel/AndroidStudioProjects/quote-of-day",
+    "last_opened_file_path": "C:/codes/nowinandroid",
     "memory.settings.postsync.last.time.stamp": "1692016064499",
-    "project.structure.last.edited": "SDK Location",
+    "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.17",
     "project.structure.side.proportion": "0.0",
     "run.code.analysis.last.selected.profile": "pProject Default",
@@ -137,11 +120,11 @@
       <recent name="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\lappixel\AndroidStudioProjects\quote-of-day\app\src\main\res\drawable" />
       <recent name="C:\Users\lappixel\AndroidStudioProjects\quote-of-day\app\src\main\java\com\example\quoteofday\components" />
       <recent name="C:\Users\lappixel\AndroidStudioProjects\quote-of-day\app\src\main\java\com\example\quoteofday" />
       <recent name="C:\Users\lappixel\AndroidStudioProjects\quote-of-day\app\src\main\java\com\example\quoteofday\ui\setting\category" />
       <recent name="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/dialog" />
-      <recent name="$PROJECT_DIR$/app/src/main/java/com/example/quoteofday/ui/home" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
       <recent name="com.example.quoteofday.utils" />
@@ -491,7 +474,47 @@
       <option name="project" value="LOCAL" />
       <updated>1705850338651</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="setting up theme">
+      <option name="closed" value="true" />
+      <created>1705952487429</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1705952487429</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Set App Launcher Icon">
+      <option name="closed" value="true" />
+      <created>1706016877659</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1706016877659</updated>
+    </task>
+    <task id="LOCAL-00019" summary="set an icon for drawer's header">
+      <option name="closed" value="true" />
+      <created>1706042998080</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1706042998080</updated>
+    </task>
+    <task id="LOCAL-00020" summary="set theme's color everywhere">
+      <option name="closed" value="true" />
+      <created>1706207520676</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1706207520676</updated>
+    </task>
+    <task id="LOCAL-00021" summary="fix color issues in dark mode in SettingsScreen">
+      <option name="closed" value="true" />
+      <created>1706254904792</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1706254904792</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -523,6 +546,10 @@
     <MESSAGE value="AppBars title for each screen added" />
     <MESSAGE value="git ignore added :))" />
     <MESSAGE value="setting up theme" />
-    <option name="LAST_COMMIT_MESSAGE" value="setting up theme" />
+    <MESSAGE value="Set App Launcher Icon" />
+    <MESSAGE value="set an icon for drawer's header" />
+    <MESSAGE value="set theme's color everywhere" />
+    <MESSAGE value="fix color issues in dark mode in SettingsScreen" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix color issues in dark mode in SettingsScreen" />
   </component>
 </project>

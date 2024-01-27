@@ -3,6 +3,7 @@ package com.example.quoteofday.ui.favotire
 import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -18,6 +19,7 @@ import androidx.navigation.NavController
 import com.example.quoteofday.data.models.Quotes
 import com.example.quoteofday.navigation.AppScreens
 import com.example.quoteofday.components.AppBar
+import com.example.quoteofday.ui.theme.LocalBackgroundTheme
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -25,7 +27,9 @@ import kotlinx.coroutines.launch
 fun FavoriteScreen(navController: NavController, viewModel: FavoritesViewModel) {
     val scope = rememberCoroutineScope()
     val favoriteQuotes by viewModel.favoriteQuotes.collectAsState(initial = emptyList())
-    
+    val textColor = if (isSystemInDarkTheme()) Color.White else Color.Black
+
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         contentColor = MaterialTheme.colorScheme.background,
@@ -54,7 +58,9 @@ fun FavoriteScreen(navController: NavController, viewModel: FavoritesViewModel) 
             Text(
                 text = "Favorite Quotes",
                 style = MaterialTheme.typography.headlineMedium,
-                modifier = Modifier.padding(bottom = 8.dp)
+                modifier = Modifier.padding(bottom = 8.dp),
+                color = textColor
+
             )
             FavoriteQuotesGrid(favoriteQuotes)
         }
