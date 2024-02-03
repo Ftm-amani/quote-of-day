@@ -48,7 +48,7 @@ import kotlinx.coroutines.launch
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun SettingsScreen(navController: NavController) {
-    var darkMode by remember { mutableStateOf(false) }
+
     var fontSizeSettingExpand by remember { mutableStateOf(false) }
     var fontColorSettingExpand by remember { mutableStateOf(false) }
     var fontSettingExpand by remember { mutableStateOf(false) }
@@ -90,19 +90,9 @@ fun SettingsScreen(navController: NavController) {
                             .verticalScroll(rememberScrollState())
 
                     ) {
-                        // Night Mode Section
-                        SettingsSectionCard(
-                            title = "Night Mode",
-                            hasToggle = true,
-                            toggleState = darkMode
-                        ) {
-
-                        }
                         // Quote Wallpaper Section
                         SettingsSectionCard(
                             title = "Quote Wallpaper",
-                            hasToggle = false,
-                            toggleState = false
                         ) {
                             SettingsSubSectionCard(
                                 title = "Change wallpaper",
@@ -115,8 +105,6 @@ fun SettingsScreen(navController: NavController) {
                         // Font Section
                         SettingsSectionCard(
                             title = "Font",
-                            hasToggle = false,
-                            toggleState = false
                         ) {
                             SettingsSubSectionCard(
                                 title = "Size",
@@ -152,8 +140,6 @@ fun SettingsScreen(navController: NavController) {
                         //Category Section
                         SettingsSectionCard(
                             title = "Category",
-                            hasToggle = false,
-                            toggleState = false
                         ) {
                             SettingsSubSectionCard(
                                 title = "Choose Categories",
@@ -174,15 +160,13 @@ fun SettingsScreen(navController: NavController) {
 @Composable
 fun SettingsSectionCard(
     title: String,
-    hasToggle: Boolean,
-    toggleState: Boolean,
     content: @Composable () -> Unit
 ) {
-    var toggle by remember { mutableStateOf(toggleState) }
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
+            .wrapContentHeight()
             .padding(bottom = 16.dp),
         elevation = CardDefaults.cardElevation(),
         shape = RoundedCornerShape(8.dp)
@@ -194,6 +178,7 @@ fun SettingsSectionCard(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .wrapContentHeight()
                     .padding(8.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
@@ -205,18 +190,9 @@ fun SettingsSectionCard(
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
-                if (hasToggle) {
-                    Switch(
-                        checked = toggle,
-                        onCheckedChange = { toggle = it },
-                        modifier = Modifier.padding(end = 8.dp)
-                    )
-                }
             }
-            if (!hasToggle) {
-                Divider()
-                content()
-            }
+            Divider()
+            content()
         }
     }
 }
