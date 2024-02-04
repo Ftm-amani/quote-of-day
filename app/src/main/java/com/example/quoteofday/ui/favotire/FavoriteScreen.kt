@@ -3,7 +3,6 @@ package com.example.quoteofday.ui.favotire
 import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -19,16 +18,15 @@ import androidx.navigation.NavController
 import com.example.quoteofday.data.models.Quotes
 import com.example.quoteofday.navigation.AppScreens
 import com.example.quoteofday.components.AppBar
-import com.example.quoteofday.ui.theme.LocalBackgroundTheme
 import kotlinx.coroutines.launch
+import androidx.compose.material.Icon
+import androidx.compose.material.icons.filled.MoreVert
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun FavoriteScreen(navController: NavController, viewModel: FavoritesViewModel) {
     val scope = rememberCoroutineScope()
     val favoriteQuotes by viewModel.favoriteQuotes.collectAsState(initial = emptyList())
-    val textColor = if (isSystemInDarkTheme()) Color.White else Color.Black
-
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -36,7 +34,7 @@ fun FavoriteScreen(navController: NavController, viewModel: FavoritesViewModel) 
         topBar = {
             AppBar(
                 imageVector = Icons.Default.ArrowBack,
-                title = "Faves",
+                title = "Favorite Quotes",
                 onNavigationIconClick = {
                     scope.launch {
                         navController.navigate(AppScreens.HomeScreen.name)
@@ -55,21 +53,14 @@ fun FavoriteScreen(navController: NavController, viewModel: FavoritesViewModel) 
                     bottom = 16.dp
                 )
         ) {
-            Text(
-                text = "Favorite Quotes",
-                style = MaterialTheme.typography.headlineMedium,
-                modifier = Modifier.padding(bottom = 8.dp),
-                color = textColor
-
-            )
-            FavoriteQuotesGrid(favoriteQuotes)
+            FavoriteQuotesGrid(favoriteQuotes, viewModel)
         }
     }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun FavoriteQuotesGrid(quotesList: List<Quotes>) {
+fun FavoriteQuotesGrid(quotesList: List<Quotes>, viewModel: FavoritesViewModel) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         modifier = Modifier
@@ -77,31 +68,58 @@ fun FavoriteQuotesGrid(quotesList: List<Quotes>) {
             .background(MaterialTheme.colorScheme.background)
     ) {
         items(quotesList) { quote ->
-            FavoriteQuoteItem(quote)
+            FavoriteQuoteItem(quote, viewModel)
         }
     }
 }
 
 @Composable
-fun FavoriteQuoteItem(quote: Quotes) {
+fun FavoriteQuoteItem(quote: Quotes, viewModel: FavoritesViewModel) {
+    var expanded by remember { mutableStateOf(false) }
     Card(
         modifier = Modifier
             .padding(8.dp)
             .fillMaxWidth(),
     ) {
-        Column(
-            modifier = Modifier.padding(8.dp)
-        ) {
-            Text(
-                text = quote.quoteText,
-                style = MaterialTheme.typography.bodyMedium
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = quote.quoteName,
-                color = Color.Gray,
-                style = MaterialTheme.typography.bodyMedium
-            )
+        Row {
+            Column(
+                modifier = Modifier.padding(8.dp)
+            ) {
+                Text(
+                    text = quote.quoteText,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = quote.quoteName,
+                    color = Color.Gray,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+
+            // Three dots icon for options
+            IconButton(
+                onClick = { expanded = true }
+            ) {
+                Icon(imageVector = Icons.Default.MoreVert, contentDescription = null)
+            }
+
+            // Dropdown menu for options
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false },
+                modifier = Modifier.padding(2.dp)
+            ) {
+                DropdownMenuItem(
+                    text = {
+                        Text("Delete")
+                    },
+                    onClick = {
+                        expanded = false
+                        // Handle delete option
+                        viewModel.toggleQuoteFavorite(quote)
+                    })
+            }
         }
     }
 }
