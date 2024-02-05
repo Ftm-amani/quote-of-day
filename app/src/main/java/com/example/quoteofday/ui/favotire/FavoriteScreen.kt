@@ -20,7 +20,10 @@ import com.example.quoteofday.navigation.AppScreens
 import com.example.quoteofday.components.AppBar
 import kotlinx.coroutines.launch
 import androidx.compose.material.Icon
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.unit.DpOffset
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -108,11 +111,27 @@ fun FavoriteQuoteItem(quote: Quotes, viewModel: FavoritesViewModel) {
             DropdownMenu(
                 expanded = expanded,
                 onDismissRequest = { expanded = false },
-                modifier = Modifier.padding(2.dp)
+                offset = DpOffset(
+                    x=50.dp,
+                    y= (-10).dp
+                )
             ) {
                 DropdownMenuItem(
                     text = {
-                        Text("Delete")
+                        Row(
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text("Delete")
+                            Icon(
+                                imageVector = Icons.Default.Delete,
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .padding(start = 20.dp)
+                                    .align(Alignment.CenterVertically),
+                                tint = Color.Red
+                                )
+                        }
                     },
                     onClick = {
                         expanded = false
