@@ -4,9 +4,8 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
@@ -64,8 +63,7 @@ fun FavoriteScreen(navController: NavController, viewModel: FavoritesViewModel) 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun FavoriteQuotesGrid(quotesList: List<Quotes>, viewModel: FavoritesViewModel) {
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
+    LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.background)
@@ -81,16 +79,27 @@ fun FavoriteQuoteItem(quote: Quotes, viewModel: FavoritesViewModel) {
     var expanded by remember { mutableStateOf(false) }
     Card(
         modifier = Modifier
-            .padding(8.dp)
+            .padding(
+                start = 8.dp,
+                top = 8.dp,
+                end = 1.dp,
+                bottom = 8.dp,
+            )
             .fillMaxWidth(),
     ) {
-        Row {
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
             Column(
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier
+                    .padding(8.dp)
+                    .weight(1F)
+
             ) {
                 Text(
                     text = quote.quoteText,
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.bodyMedium,
+                    maxLines = 5
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
@@ -112,8 +121,8 @@ fun FavoriteQuoteItem(quote: Quotes, viewModel: FavoritesViewModel) {
                 expanded = expanded,
                 onDismissRequest = { expanded = false },
                 offset = DpOffset(
-                    x=50.dp,
-                    y= (-10).dp
+                    x = 50.dp,
+                    y = (-10).dp
                 )
             ) {
                 DropdownMenuItem(
