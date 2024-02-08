@@ -1,6 +1,7 @@
 package com.example.quoteofday.ui.favotire
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -21,7 +22,9 @@ import kotlinx.coroutines.launch
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.DpOffset
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -77,6 +80,8 @@ fun FavoriteQuotesGrid(quotesList: List<Quotes>, viewModel: FavoritesViewModel) 
 @Composable
 fun FavoriteQuoteItem(quote: Quotes, viewModel: FavoritesViewModel) {
     var expanded by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+
     Card(
         modifier = Modifier
             .padding(
@@ -146,6 +151,29 @@ fun FavoriteQuoteItem(quote: Quotes, viewModel: FavoritesViewModel) {
                         expanded = false
                         // Handle delete option
                         viewModel.toggleQuoteFavorite(quote)
+                    })
+                DropdownMenuItem(
+                    text = {
+                        Row(
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text("Share")
+                            Icon(
+                                imageVector = Icons.Default.Share,
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .padding(start = 20.dp)
+                                    .align(Alignment.CenterVertically),
+                                )
+                        }
+                    },
+                    onClick = {
+                        val shareIntent = Intent(Intent.ACTION_SEND)
+                        shareIntent.type = "text/plain"
+                        shareIntent.putExtra(Intent.EXTRA_TEXT, quote.quoteText)
+                        val chooser = Intent.createChooser(shareIntent, "Share Quote")
+                        context.startActivity(chooser)
                     })
             }
         }
