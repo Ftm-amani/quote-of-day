@@ -24,6 +24,7 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.DpOffset
 
@@ -58,14 +59,14 @@ fun FavoriteScreen(navController: NavController, viewModel: FavoritesViewModel) 
                     bottom = 16.dp
                 )
         ) {
-            FavoriteQuotesGrid(favoriteQuotes, viewModel)
+            FavoriteQuotesList(favoriteQuotes, viewModel)
         }
     }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun FavoriteQuotesGrid(quotesList: List<Quotes>, viewModel: FavoritesViewModel) {
+fun FavoriteQuotesList(quotesList: List<Quotes>, viewModel: FavoritesViewModel) {
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
@@ -81,6 +82,8 @@ fun FavoriteQuotesGrid(quotesList: List<Quotes>, viewModel: FavoritesViewModel) 
 fun FavoriteQuoteItem(quote: Quotes, viewModel: FavoritesViewModel) {
     var expanded by remember { mutableStateOf(false) }
     val context = LocalContext.current
+    val configuration = LocalConfiguration.current
+    val maxWidth = configuration.screenWidthDp.dp
 
     Card(
         modifier = Modifier
@@ -125,9 +128,10 @@ fun FavoriteQuoteItem(quote: Quotes, viewModel: FavoritesViewModel) {
             DropdownMenu(
                 expanded = expanded,
                 onDismissRequest = { expanded = false },
+                modifier = Modifier.padding(horizontal = 20.dp),
                 offset = DpOffset(
-                    x = 50.dp,
-                    y = (-10).dp
+                    x = maxWidth,
+                    y = (-30).dp
                 )
             ) {
                 DropdownMenuItem(
