@@ -119,9 +119,15 @@ fun QuoteScreen(
                     ),
                     MenuItem(
                         id = "FavoriteScreen",
-                        title = "favorite",
+                        title = "Favorite",
                         contentDescription = "Go to favorite screen",
                         icon = Icons.Default.Favorite
+                    ),
+                    MenuItem(
+                        id = "AddQuoteScreen",
+                        title = "Add Quote",
+                        contentDescription = "Go to add quote screen",
+                        icon = Icons.Default.AddCircle
                     ),
                     MenuItem(
                         id = "SettingScreen",
