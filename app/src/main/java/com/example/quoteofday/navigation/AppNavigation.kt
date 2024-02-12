@@ -10,6 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.quoteofday.ui.dialog.DialogScreen
 import com.example.quoteofday.ui.MainViewModel
 import com.example.quoteofday.ui.addquote.AddQuoteScreen
+import com.example.quoteofday.ui.addquote.AddQuoteViewModel
 import com.example.quoteofday.ui.favotire.FavoriteScreen
 import com.example.quoteofday.ui.favotire.FavoritesViewModel
 import com.example.quoteofday.ui.home.QuoteScreen
@@ -69,8 +70,13 @@ fun AppNavigation(showDialog: Boolean, sharedPreferences: SharedPreferences) {
 			)
 		}
 		composable(AppScreens.AddQuoteScreen.name) {
+			val addQuoteViewModel = hiltViewModel<AddQuoteViewModel>()
+			val chooseCategoriesViewModel = hiltViewModel<ChooseCategoriesViewModel>()
+
 			AddQuoteScreen(
 				navController = navController,
+				viewModel = addQuoteViewModel,
+				chooseCategoriesViewModel = chooseCategoriesViewModel
 			)
 		}
 	}
