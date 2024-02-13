@@ -1,29 +1,22 @@
 package com.example.quoteofday.ui.addquote
 
-import android.util.Log
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Button
-import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -37,14 +30,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.quoteofday.TAG
 import com.example.quoteofday.components.AppBar
 import com.example.quoteofday.navigation.AppScreens
 import com.example.quoteofday.ui.setting.category.ChooseCategoriesViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -67,10 +59,12 @@ fun AddQuoteScreen(
         bottomStart = CornerSize(0.dp)
     )
     else RoundedCornerShape(8.dp)
+    val snackbarHostState = remember { SnackbarHostState() }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         contentColor = MaterialTheme.colorScheme.background,
+        snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar = {
             AppBar(
                 imageVector = Icons.Default.ArrowBack,
@@ -149,6 +143,18 @@ fun AddQuoteScreen(
 
             Button(
                 onClick = {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        viewModel.addQuote(
+                        quoteText = quoteText,
+                        quoteName = selectedOptionText,
+                        isFave = false,
+                        isSelected = false,
+                    )}
+                    scope.launch {
+                        snackbarHostState.showSnackbar(
+                            "Quote added successfully!"
+                        )
+                    }
                 },
                 modifier = Modifier
                     .padding(vertical = 20.dp)
