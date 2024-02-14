@@ -17,6 +17,8 @@ import com.example.quoteofday.ui.home.QuoteScreen
 import com.example.quoteofday.ui.setting.SettingsScreen
 import com.example.quoteofday.ui.setting.category.ChooseCategoriesViewModel
 import com.example.quoteofday.ui.setting.category.ChooseCategoryScreen
+import com.example.quoteofday.ui.setting.notification.NotificationScreen
+import com.example.quoteofday.ui.setting.notification.NotificationViewModel
 import com.example.quoteofday.ui.setting.wallpaper.ChangeWallpaperScreen
 
 @ExperimentalComposeUiApi
@@ -77,6 +79,14 @@ fun AppNavigation(showDialog: Boolean, sharedPreferences: SharedPreferences) {
 				navController = navController,
 				viewModel = addQuoteViewModel,
 				chooseCategoriesViewModel = chooseCategoriesViewModel
+			)
+		}
+		composable(AppScreens.NotificationScreen.name) {
+			val notificationViewModel = hiltViewModel<NotificationViewModel>()
+
+			NotificationScreen(
+				navController = navController,
+				viewModel = notificationViewModel
 			)
 		}
 	}

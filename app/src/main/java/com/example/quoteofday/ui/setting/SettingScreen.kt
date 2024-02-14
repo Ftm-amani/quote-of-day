@@ -23,7 +23,6 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -146,6 +145,18 @@ fun SettingsScreen(navController: NavController) {
                                 isExpandedInitially = false,
                                 onItemClick = {
                                     navController.navigate(AppScreens.ChooseCategoryScreen.name)
+                                }
+                            ) {}
+                        }
+                        //Notification Section
+                        SettingsSectionCard(
+                            title = "Notification",
+                        ) {
+                            SettingsSubSectionCard(
+                                title = "Set Notification",
+                                isExpandedInitially = false,
+                                onItemClick = {
+                                    navController.navigate(AppScreens.NotificationScreen.name)
                                 }
                             ) {}
                         }
