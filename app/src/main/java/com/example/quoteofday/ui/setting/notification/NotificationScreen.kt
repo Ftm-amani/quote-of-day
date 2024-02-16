@@ -102,6 +102,8 @@ fun NotificationScreen(
                                         selectedHour,
                                         selectedMinute
                                     )
+
+                                    navController.navigate(AppScreens.SettingScreen.name)
                                 },
                                 modifier = Modifier
                                     .padding(vertical = 20.dp)
