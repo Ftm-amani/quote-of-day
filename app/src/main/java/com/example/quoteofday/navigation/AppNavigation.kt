@@ -83,12 +83,10 @@ fun AppNavigation(showDialog: Boolean, sharedPreferences: SharedPreferences) {
 		}
 		composable(AppScreens.NotificationScreen.name) {
 			val notificationViewModel = hiltViewModel<NotificationViewModel>()
-			val mainViewModel = hiltViewModel<MainViewModel>()
 
 			NotificationScreen(
 				navController = navController,
 				viewModel = notificationViewModel,
-				mainViewModel = mainViewModel
 			)
 		}
 	}

@@ -18,32 +18,30 @@ import androidx.compose.material3.TimePicker
 import androidx.compose.material3.TimePickerDefaults
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.quoteofday.components.AppBar
 import com.example.quoteofday.components.QodBackground
 import com.example.quoteofday.navigation.AppScreens
-import com.example.quoteofday.ui.MainViewModel
 import com.example.quoteofday.ui.theme.QuoteOfDayTheme
+import com.example.quoteofday.utils.QuoteNotificationService
 import kotlinx.coroutines.launch
-import kotlin.random.Random
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("MutableCollectionMutableState")
 @Composable
 fun NotificationScreen(
     navController: NavController,
-    viewModel: NotificationViewModel,
-    mainViewModel: MainViewModel,
+    viewModel: NotificationViewModel
 ) {
 
+    val context = LocalContext.current
     val scope = rememberCoroutineScope()
-    val quotes by mainViewModel.getSelectedQuotes().collectAsState(initial = emptyList())
+    //timeState holds time that user picks
     val timeState = rememberTimePickerState(11, 30, false)
 
     Scaffold(
@@ -97,9 +95,13 @@ fun NotificationScreen(
 
                             Button(
                                 onClick = {
-                                    if (quotes.isNotEmpty()) {
-                                    //todo view-model functions
-                                    }
+                                    val quoteNotificationService = QuoteNotificationService(context)
+                                    val selectedHour = timeState.hour
+                                    val selectedMinute = timeState.minute
+                                    quoteNotificationService.scheduleNotification(
+                                        selectedHour,
+                                        selectedMinute
+                                    )
                                 },
                                 modifier = Modifier
                                     .padding(vertical = 20.dp)

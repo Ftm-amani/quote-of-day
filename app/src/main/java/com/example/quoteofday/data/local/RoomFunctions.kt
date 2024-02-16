@@ -1,6 +1,7 @@
 package com.example.quoteofday.data.local
 
 import com.example.quoteofday.data.models.Quotes
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 //repo
@@ -24,5 +25,9 @@ class RoomFunctions @Inject constructor(
     fun getSelectedQuotes() = quoteDao.getSelectedQuotes()
 
     fun getDistinctQuoteNamesAndSelection() = quoteDao.getDistinctQuoteNamesAndSelection()
+
+    fun getRandomQuote() = getSelectedQuotes().map { selectedQuotes ->
+        selectedQuotes.shuffled().firstOrNull()?.quoteText
+    }
 
 }
