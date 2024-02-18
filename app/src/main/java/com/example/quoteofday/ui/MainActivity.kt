@@ -24,7 +24,6 @@ import com.google.accompanist.permissions.rememberPermissionState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-//HiltAndroidApp
 class MainActivity : ComponentActivity() {
     
     private lateinit var sharedPreferences: SharedPreferences

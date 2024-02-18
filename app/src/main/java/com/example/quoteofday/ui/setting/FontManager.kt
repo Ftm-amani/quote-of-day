@@ -4,9 +4,10 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
 
-class FontManager (context: Context) {
-    private val sharedPreferences: SharedPreferences = context.getSharedPreferences("font_prefs", Context.MODE_PRIVATE)
-    
+class FontManager(context: Context) {
+    private val sharedPreferences: SharedPreferences =
+        context.getSharedPreferences("font_prefs", Context.MODE_PRIVATE)
+
     fun saveFontSize(size: Int) {
         sharedPreferences.edit {
             putInt("font_size", size)
@@ -34,8 +35,8 @@ class FontManager (context: Context) {
     }
 
     fun getFontFamily(): String {
-            return sharedPreferences
-                .getString("font_family", "DefaultFont") ?: "DefaultFont"
-        }
+        return sharedPreferences
+            .getString("font_family", "DefaultFont") ?: "DefaultFont"
+    }
 
 }
