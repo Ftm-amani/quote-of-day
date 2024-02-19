@@ -28,7 +28,7 @@ import com.example.quoteofday.components.AppBar
 import com.example.quoteofday.components.QodBackground
 import com.example.quoteofday.navigation.AppScreens
 import com.example.quoteofday.ui.theme.QuoteOfDayTheme
-import com.example.quoteofday.utils.QuoteNotificationService
+import com.example.quoteofday.components.notification.QuoteNotificationService
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)

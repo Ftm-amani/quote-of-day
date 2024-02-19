@@ -1,9 +1,9 @@
-package com.example.quoteofday.utils
+package com.example.quoteofday.components.notification
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.example.quoteofday.utils.QuoteManager.randomQuoteNotification
+import com.example.quoteofday.components.notification.QuoteManager.randomQuoteNotification
 
 class NotificationBroadcastReceiver : BroadcastReceiver() {
 

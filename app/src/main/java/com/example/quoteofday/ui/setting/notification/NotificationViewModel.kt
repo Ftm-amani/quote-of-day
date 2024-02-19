@@ -3,7 +3,7 @@ package com.example.quoteofday.ui.setting.notification
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.quoteofday.data.local.RoomFunctions
-import com.example.quoteofday.utils.QuoteManager.randomQuoteNotification
+import com.example.quoteofday.components.notification.QuoteManager.randomQuoteNotification
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

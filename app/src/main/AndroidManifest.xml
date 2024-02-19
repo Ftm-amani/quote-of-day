@@ -32,7 +32,7 @@
                 android:value="" />
         </activity>
         <receiver
-            android:name=".utils.NotificationBroadcastReceiver"
+            android:name=".components.notification.NotificationBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>

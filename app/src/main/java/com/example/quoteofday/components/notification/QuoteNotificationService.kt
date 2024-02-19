@@ -1,4 +1,4 @@
-package com.example.quoteofday.utils
+package com.example.quoteofday.components.notification
 
 import android.app.AlarmManager
 import android.app.NotificationManager
