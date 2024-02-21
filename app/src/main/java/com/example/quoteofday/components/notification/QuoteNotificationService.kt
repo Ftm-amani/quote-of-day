@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 import com.example.quoteofday.R
+import com.example.quoteofday.ui.MainActivity
 import java.util.Calendar
 import kotlin.random.Random
 
@@ -19,6 +20,14 @@ class QuoteNotificationService (
         val bigTextStyle = NotificationCompat.BigTextStyle()
             .bigText(message)
 
+        val openAppIntent = Intent(context, MainActivity::class.java)
+        val pendingOpenAppIntent = PendingIntent.getActivity(
+            context,
+            0,
+            openAppIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
         val notification = NotificationCompat.Builder(context, "quote_notification")
             .setContentTitle("Quote Of Day")
             .setContentText(message)
@@ -26,6 +35,12 @@ class QuoteNotificationService (
             .setPriority(NotificationManager.IMPORTANCE_HIGH)
             .setStyle(bigTextStyle)
             .setAutoCancel(true)
+            .setContentIntent(pendingOpenAppIntent)  // Set the intent for clicking on the notification
+            .addAction(
+                R.drawable.ic_launcher_foreground,
+                "Open App",
+                pendingOpenAppIntent
+            )
             .build()
 
         notificationManager.notify(
