@@ -37,6 +37,12 @@ The Quote of the Day app is for people who want a daily boost of positivity. It 
 
 - **Navigation Component**: Smooth app navigation.
 
+## Screenshots
+
+| Home Screen                                                      | Settings Screen                                                        | Menu                                                      |
+|------------------------------------------------------------------|------------------------------------------------------------------------|-----------------------------------------------------------|
+| <img src="screenshots/home.jpg" width="400" alt="Home Screen" /> | <img src="screenshots/setting.jpg" width="400" alt="setting Screen" /> | <img src="screenshots/menu.jpg" width="400" alt="ment" /> |
+
 ## How to Help
 
 1. Copy the project to your account.
